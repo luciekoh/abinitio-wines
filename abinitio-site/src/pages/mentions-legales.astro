@@ -1,0 +1,79 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base title="Mentions légales — Ab Initio" description="Mentions légales du site Ab Initio, vins biologiques, Loire.">
+  <Nav />
+  <main class="legal-page">
+    <h1>Mentions légales</h1>
+
+    <h2>Éditeur du site</h2>
+    <p>
+      SAS AB INITIO<br />
+      Clos de l'Écu, 44430 Le Landreau, France<br />
+      SIRET : [À compléter]<br />
+      <a href="mailto:contact@abinitio-wines.com">contact@abinitio-wines.com</a><br />
+      <a href="tel:+33240064091">+33 (0)2 40 06 40 91</a><br />
+      Directeur de la publication : Emmanuel Roblin
+    </p>
+
+    <h2>Hébergement</h2>
+    <p>[À compléter]</p>
+
+    <h2>Propriété intellectuelle</h2>
+    <p>L'ensemble du contenu de ce site (textes, images, photographies, illustrations, logos) est la propriété exclusive de SAS AB INITIO ou de ses partenaires et est protégé par les lois françaises et internationales relatives à la propriété intellectuelle. Toute reproduction, représentation, modification ou exploitation, même partielle, est interdite sans autorisation écrite préalable.</p>
+
+    <h2>Crédits photographiques</h2>
+    <p>[À compléter]</p>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .legal-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 8rem 2rem 4rem;
+    font-family: var(--sans);
+    color: var(--dark-gray);
+  }
+
+  .legal-page h1 {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    font-weight: 300;
+    margin-bottom: 3rem;
+    color: var(--dark-gray);
+  }
+
+  .legal-page h2 {
+    font-family: var(--sans);
+    font-size: .65rem;
+    font-weight: 400;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin-top: 2.5rem;
+    margin-bottom: .8rem;
+  }
+
+  .legal-page p {
+    font-size: .88rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--mid-gray);
+    margin-bottom: 1rem;
+  }
+
+  .legal-page a {
+    color: var(--dark-gray);
+    border-bottom: 1px solid transparent;
+    transition: border-color .3s;
+  }
+
+  .legal-page a:hover {
+    border-bottom-color: var(--dark-gray);
+  }
+</style>

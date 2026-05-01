@@ -1,0 +1,152 @@
+---
+import partnersData from '../content/partners/list.json';
+const partners = partnersData.items;
+---
+
+<!-- Part A: CTA band — cream bg, teal text -->
+<div class="pro-cta" id="pro">
+  <div class="pro-cta-inner fade-in">
+    <div class="pro-cta-text">
+      <h3 class="pro-heading">Professionnel·le du vin ?</h3>
+      <p class="pro-subtitle">Tarifs, animations, accords — parlons-en ensemble.</p>
+    </div>
+    <a href="mailto:contact@abinitio-wines.com" class="pro-btn">Nous contacter</a>
+  </div>
+</div>
+
+<!-- Part B: Trust strip -->
+<div class="trust-strip">
+  <div class="trust-inner fade-in">
+    <span class="trust-header">Ravis de travailler avec les passionné·es</span>
+    <p class="trust-line">
+      {partners.map((p) => (
+        <span class="partner-unit">{p.name} <span class="place">{p.town}</span><span class="sep">·</span></span>
+      ))}
+      <span class="more">et aussi…</span>
+    </p>
+    <a href="/distributeurs" class="section-cta trust-link">Trouver nos vins en France et au-delà →</a>
+  </div>
+</div>
+
+<style>
+  .pro-cta {
+    background: var(--cta-bg);
+    padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 5vw, 4rem);
+  }
+
+  .pro-cta-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem 3rem;
+    flex-wrap: wrap;
+  }
+
+  .pro-cta-text {
+    flex: 1;
+    min-width: 260px;
+  }
+
+  .pro-heading {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300;
+    color: var(--cta-heading);
+    margin-bottom: .5rem;
+  }
+
+  .pro-subtitle {
+    font-family: var(--sans);
+    font-size: .9rem;
+    font-weight: 300;
+    color: var(--cta-subtitle);
+  }
+
+  .pro-btn {
+    display: inline-block;
+    flex-shrink: 0;
+    align-self: center;
+    font-family: var(--sans);
+    font-size: .72rem;
+    font-weight: 400;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--cta-bg);
+    background: var(--offwhite);
+    padding: .85rem 2.8rem;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    transition: all .3s;
+  }
+
+  .pro-btn:hover {
+    background: transparent;
+    border-color: var(--offwhite);
+    color: var(--offwhite);
+  }
+
+  .trust-strip {
+    background: var(--cream);
+    padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 5vw, 4rem);
+  }
+
+  .trust-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .trust-header {
+    display: block;
+    font-family: var(--sans);
+    font-size: .65rem;
+    font-weight: 400;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: rgba(10, 47, 106, .5);
+    margin-bottom: .8rem;
+  }
+
+  .trust-line {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    color: var(--accent);
+    line-height: 2.1;
+  }
+
+  .partner-unit {
+    display: inline;
+  }
+
+  .partner-unit .place {
+    font-family: var(--sans);
+    font-style: normal;
+    font-size: .78rem;
+    color: var(--accent);
+    letter-spacing: .04em;
+    margin-left: .3em;
+  }
+
+  .partner-unit .sep {
+    color: var(--accent);
+    opacity: .45;
+    margin: 0 .4rem 0 .8rem;
+  }
+
+  .trust-line .more {
+    color: var(--mid-gray);
+  }
+
+  .trust-link {
+    display: inline-block;
+    margin-top: 1.2rem;
+    color: var(--accent);
+    opacity: .6;
+  }
+  .trust-link:hover {
+    opacity: 1;
+    border-bottom-color: var(--accent);
+  }
+</style>

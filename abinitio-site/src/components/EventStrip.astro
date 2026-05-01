@@ -1,0 +1,83 @@
+<div class="events-strip" id="events">
+  <div class="events-inner">
+    <span class="section-label events-label">Salons à venir</span>
+    <div class="events-list stagger">
+      <div class="event-item">
+        <span class="event-date">10–11 MAI</span>
+        <span class="event-name">RAW WINE</span>
+        <span class="event-location">Tokyo, Japon</span>
+      </div>
+      <div class="event-item">
+        <span class="event-date">23 MAI</span>
+        <span class="event-name">Salon des Vins, Cave de la Ria</span>
+        <span class="event-location">Pornic, France</span>
+      </div>
+      <div class="event-item">
+        <span class="event-date">6–8 JUIN</span>
+        <span class="event-name">Sous les Pavés la Vigne</span>
+        <span class="event-location">Paris, France</span>
+      </div>
+    </div>
+    <a href="/salons" class="section-cta" style="margin-top:2.5rem;display:inline-block">Tous les événements →</a>
+  </div>
+</div>
+
+<style>
+  .events-strip {
+    background: #faf9f6;
+    color: var(--dark-gray);
+    padding: clamp(3rem, 6vw, 4.5rem) clamp(1.5rem, 5vw, 4rem);
+    padding-bottom: clamp(4rem, 8vw, 6rem);
+    border-top: 1px solid rgba(44, 42, 38, .08);
+  }
+
+  .events-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .events-label {
+    display: block;
+    margin-bottom: 2rem;
+    color: var(--mid-gray);
+    font-size: .72rem;
+  }
+
+  .event-item {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(44, 42, 38, .1);
+  }
+
+  .event-date {
+    font-family: var(--display);
+    font-size: .95rem;
+    letter-spacing: .08em;
+    white-space: nowrap;
+    min-width: 120px;
+    color: var(--mid-gray);
+  }
+
+  .event-name {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--dark-gray);
+  }
+
+  .event-location {
+    font-family: var(--sans);
+    font-size: .82rem;
+    color: var(--mid-gray);
+    margin-left: auto;
+  }
+
+  @media (max-width: 600px) {
+    .event-item {
+      flex-direction: column;
+      gap: .2rem;
+    }
+  }
+</style>

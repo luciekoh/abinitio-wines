@@ -1,0 +1,150 @@
+---
+import WineCard from './WineCard.astro';
+
+import philiaImg from '../assets/images/labels/philia.jpg';
+import eidosImg from '../assets/images/labels/eidos.jpeg';
+import logosImg from '../assets/images/labels/logos.jpg';
+import kedronImg from '../assets/images/labels/kedron.jpg';
+import kairosImg from '../assets/images/labels/kairos.jpeg';
+import prestoImg from '../assets/images/labels/presto.jpg';
+import ekkoImg from '../assets/images/labels/ekko.jpg';
+import illicoImg from '../assets/images/labels/illico.jpg';
+
+const philosophie = [
+  { name: 'PHILIA', vintage: '2021', color: 'Blanc', grapes: 'Folle Blanche', imageSrc: philiaImg.src, altText: 'Étiquette Philia 2021 — Folle Blanche', href: '/cuvees/philia' },
+  { name: 'EÏDOS', vintage: '2022', color: 'Blanc', grapes: 'Melon B. · Chardonnay · Folle B.', imageSrc: eidosImg.src, altText: 'Étiquette Eïdos 2022 — Melon B., Chardonnay, Folle B.', href: '/cuvees/eidos' },
+  { name: 'LOGOS', vintage: '2023', color: 'Blanc', grapes: 'Chardonnay', imageSrc: logosImg.src, altText: 'Étiquette Logos 2023 — Chardonnay', href: '/cuvees/logos' },
+  { name: 'KEDRON', vintage: '2020', color: 'Rouge', grapes: 'Grenache · Syrah', imageSrc: kedronImg.src, altText: 'Étiquette Kedron 2020 — Grenache, Syrah', href: '/cuvees/kedron' },
+  { name: 'KAÏROS', vintage: '2021', color: 'Rouge', grapes: 'Gamay', imageSrc: kairosImg.src, altText: 'Étiquette Kaïros 2021 — Gamay', href: '/cuvees/kairos' },
+];
+
+const copains = [
+  { name: 'PRESTO', vintage: '2023', color: 'Blanc', grapes: 'Folle B. · Chardonnay · Melon B.', imageSrc: prestoImg.src, altText: 'Étiquette Presto 2023 — Folle B., Chardonnay, Melon B.', href: '/cuvees/presto' },
+  { name: 'EKKO', vintage: '2023', color: 'Blanc', grapes: 'Melon de Bourgogne', imageSrc: ekkoImg.src, altText: 'Étiquette Ekko 2023 — Melon de Bourgogne', href: '/cuvees/ekko' },
+  { name: 'ILLICO', vintage: '2021', color: 'Rouge', grapes: 'Grenache · Syrah', imageSrc: illicoImg.src, altText: 'Étiquette Illico 2021 — Grenache, Syrah', href: '/cuvees/illico' },
+];
+---
+
+<section class="wines-section" id="wines">
+  <div class="wines-inner">
+    <div class="wines-header fade-in">
+      <span class="section-label wines-label">La Collection</span>
+      <h2 class="wines-title">Chaque cuvée porte un nom<br />qui est une intention.</h2>
+    </div>
+
+    <div class="wine-category">
+      <div class="wine-category-header fade-in">
+        <span class="wine-category-name">VINS DE LA PHILOSOPHIE</span>
+        <span class="wine-category-desc">Élevés en amphore, nés de la patience</span>
+      </div>
+      <div class="wine-row stagger">
+        {philosophie.map((wine) => (
+          <WineCard {...wine} />
+        ))}
+      </div>
+    </div>
+
+    <div class="wine-category wine-category-last">
+      <div class="wine-category-header fade-in">
+        <span class="wine-category-name">VINS DES COPAINS</span>
+        <span class="wine-category-desc">L'élan, le partage, la joie immédiate</span>
+      </div>
+      <div class="wine-row stagger">
+        {copains.map((wine) => (
+          <WineCard {...wine} />
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .wines-section {
+    background: var(--black);
+    color: var(--offwhite);
+    padding-top: clamp(2.5rem, 5vw, 4rem);
+    padding-bottom: clamp(1rem, 2vw, 1.5rem);
+  }
+
+  .wines-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .wines-header {
+    margin-bottom: 3rem;
+  }
+
+  .wines-label {
+    font-size: .7rem;
+    color: rgba(245, 242, 235, .7);
+  }
+
+  .wines-title {
+    font-family: var(--serif);
+    font-size: clamp(2.1rem, 4.5vw, 3.4rem);
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--offwhite);
+  }
+
+  .wine-category {
+    margin-bottom: 4rem;
+  }
+
+  .wine-category-last {
+    margin-bottom: 1rem;
+  }
+
+  .wine-category-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding-bottom: .75rem;
+    border-bottom: 1px solid rgba(245, 242, 235, .12);
+  }
+
+  .wine-category-name {
+    font-family: var(--display);
+    font-size: 1.6rem;
+    letter-spacing: .1em;
+    color: var(--offwhite);
+  }
+
+  .wine-category-desc {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(245, 242, 235, .65);
+  }
+
+  .wine-row {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 1rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .wine-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (min-width: 900px) {
+    .wine-row {
+      overflow: visible;
+      flex-wrap: wrap;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .wine-category-header {
+      flex-direction: column;
+      gap: .3rem;
+    }
+  }
+</style>

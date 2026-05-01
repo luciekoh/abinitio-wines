@@ -1,0 +1,289 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import SeoBreadcrumbs from '../components/SeoBreadcrumbs.astro';
+
+import grandpere from '../assets/histoire/grandpere-yves.jpg';
+import vignes from '../assets/histoire/vignes-providence.jpg';
+import kairos from '../assets/histoire/kairos-bouteille.jpg';
+import partners from '../assets/histoire/emmanuel-claire-fred.jpg';
+import lifering from '../assets/histoire/parents-life-ring.jpg';
+import bateau from '../assets/histoire/parents-bateau.jpg';
+---
+
+<Base
+  title="Histoire | AB Initio — Vins biologiques, Loire"
+  description="L'histoire d'Emmanuel Roblin et d'AB Initio : une rencontre, des vignes centenaires, une conviction. Vins biologiques élevés en amphore, Loire."
+>
+  <Nav />
+  <SeoBreadcrumbs items={[
+    { name: 'Accueil', url: '/' },
+    { name: 'Histoire', url: '/histoire' },
+  ]} />
+
+  <!-- 1. Hero title -->
+  <div class="hero-titre">
+    <span class="eyebrow">Histoire</span>
+    <h1>Depuis le commencement</h1>
+  </div>
+
+  <!-- 2. Photo + text side by side -->
+  <section class="hero-histoire">
+    <div class="hero-photo">
+      <img src={grandpere.src} alt="Yves, grand-père d'Emmanuel, marin pêcheur" loading="eager" />
+    </div>
+    <div class="hero-text">
+      <p class="rien">Rien n'arrive sans raison…</p>
+      <div class="hero-body">
+        <p><strong>Octobre 2015, un ami caviste m'emmène à un salon près de Nantes.</strong> Sur le stand du Domaine de l'Écu, Fred Niger me fait déguster son Melon de Bourgogne élevé en amphore. Ce vin me bouleverse, littéralement — je m'en souviens encore très précisément.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="text-col text-col-left">
+    <p>Six mois plus tard, je rejoins Fred à l'Écu pour quelques semaines de stage, suivi des vendanges. <strong>Saisi par la passion, je quitte un poste confortable dans le design haut de gamme pour me plonger dans la terre et le vivant.</strong> La formation à l'école de viticulture d'Amboise, à l'époque la seule en France spécialisée en agriculture et vinification biologiques et biodynamiques, me fait rencontrer des formateurs remarquables — Damien Delecheneau, Vincent Carême, Tanguy Perraud, Philippe Chigard…</p>
+  </div>
+
+  <div class="text-col text-col-third">
+    <p><strong>Vendanges 2018, Fred me parle d'un petit domaine pas loin de l'Écu.</strong> Arrivé au Domaine de la Providence, un coup de foudre pour ces vignes centenaires profondément enracinées dans des sous-sols de granite et de schiste et ses pratiques culturales douces. J'emménage dans une petite maison attenante au chai et commence la taille de la vigne.</p>
+  </div>
+
+  <img src={vignes.src} alt="Les vignes de la Providence au coucher du soleil, Vallet" class="vignes-break" loading="lazy" />
+
+  <!-- Kaïros + AB Initio creation -->
+  <div class="kairos-section">
+    <div class="kairos-text">
+      <p>L'année suivante, l'aventure commence vraiment : je vendange une parcelle de Gamay à la Providence et en fais mon premier vin, avec une amphore et le soutien administratif prêtés par Fred et Claire. <strong>Dix-huit mois plus tard, mon rêve devient réalité : le vin est mis en bouteille et baptisé Kaïros — le moment opportun, l'instant juste.</strong></p>
+      <p><strong>Motivés par ce premier succès, Claire, Fred et moi créons AB Initio en août 2020.</strong> Moi dans le rôle d'artisan-vinificateur qui sélectionne les vignerons et les parcelles, crée et élabore les vins et les commercialise, avec l'indispensable soutien matériel et logistique de Fred et Claire. <strong>Une gamme de vins de passion, de philosophie et de copains.</strong></p>
+    </div>
+    <img src={kairos.src} alt="Bouteille Kaïros, première cuvée AB Initio" class="kairos-bottle" loading="lazy" />
+  </div>
+
+  <!-- Text column — paras 5 & 6 -->
+  <div class="text-col">
+    <p>Le commencement — <em>initio</em> — des vins se trouve souvent dans la taille, un autre moment crucial ! Presto, une proposition singulière des trois cépages du Nantais, s'inspire d'une parcelle complantée. Philia, l'image des étés bretons chez grand-père pêcheur, est née en taillant des vieilles Folles Blanches sous une pluie battante.</p>
+    <p><strong>Pas à pas, je crée un univers à mon image.</strong> AB Initio est l'estuaire naturel de mon fleuve de vie (pas tranquille), un projet de conviction empreint de tout ce qui m'a formé, de tout ce qui m'est cher : mon grand-père et son bateau qui partait pêcher à la ligne dans la baie de Douarnenez, à Saint-Jean-de-Luz ou à Saint-Nazaire, où mes parents se marient et où je suis né. L'océan, force omniprésente pour ma famille. Une abondance de poissons, de crustacés, d'huîtres — le quotidien de mon enfance, naturellement reflété dans la personnalité de mes vins, dans la salinité, la tension, mais aussi la légèreté. Ma Bretagne, une ancre identitaire ; le Muscadet, un chez-moi adopté, un terroir découvert. Mes études de philosophie, mon besoin d'aller au fond des choses qu'on retrouve dans les noms des cuvées, dans le regard que je porte sur la vigne, le vin, l'humain. <strong>Tous ces moments de bascule, des rencontres qui nous font vibrer.</strong></p>
+  </div>
+
+  <!-- Nihil -->
+  <div class="nihil">
+    <p>Car rien n'arrive sans raison — <em>nihil fit sine causa…</em></p>
+  </div>
+
+  <!-- Archive photos -->
+  <div class="archive-photos">
+    <img src={partners.src} alt="Emmanuel Roblin, Claire Niger et Fred Niger, associés AB Initio" loading="lazy" />
+    <img src={bateau.src} alt="Mariage des parents d'Emmanuel à bord du Marc-Hélène" loading="lazy" />
+  </div>
+
+  <Footer />
+</Base>
+
+<style>
+  /* Hero title */
+  .hero-titre {
+    background: var(--offwhite);
+    text-align: center;
+    padding: clamp(5rem, 8vw, 7rem) 2rem clamp(2rem, 4vw, 3rem);
+  }
+  .hero-titre .eyebrow {
+    font-family: var(--sans);
+    font-size: .72rem;
+    font-weight: 400;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    display: block;
+    margin-bottom: .8rem;
+  }
+  .hero-titre h1 {
+    font-family: var(--display);
+    font-size: clamp(2.8rem, 7vw, 3.6rem);
+    letter-spacing: .08em;
+    color: var(--dark-gray);
+  }
+
+  /* Hero — photo left, text right */
+  .hero-histoire {
+    background: var(--offwhite);
+    display: grid;
+    grid-template-columns: 42% 1fr;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 3rem 2rem;
+    gap: 0;
+  }
+  .hero-photo {
+    padding-right: 2rem;
+  }
+  .hero-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 3 / 4;
+  }
+  .hero-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .rien {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    line-height: 1.3;
+    color: var(--dark-gray);
+    margin-bottom: 1.5rem;
+  }
+  .hero-body {
+    font-family: var(--serif);
+    font-size: 1.19rem;
+    line-height: 1.82;
+    font-weight: 300;
+    color: var(--dark-gray);
+    max-width: 480px;
+  }
+  .hero-body strong {
+    font-weight: 400;
+  }
+  .hero-body p + p {
+    margin-top: 1.5rem;
+  }
+
+  /* Text columns */
+  .text-col {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 3rem .8rem;
+    font-family: var(--serif);
+    font-size: 1.19rem;
+    line-height: 1.82;
+    font-weight: 300;
+    color: var(--dark-gray);
+    background: var(--offwhite);
+  }
+  .text-col p + p {
+    margin-top: 1.5rem;
+  }
+  .text-col strong {
+    font-weight: 400;
+  }
+  .text-col em {
+    font-style: italic;
+  }
+
+  .text-col-left {
+    padding-top: 1.5rem;
+  }
+  .text-col-third {
+    padding-top: .5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  /* Kaïros section */
+  .kairos-section {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 3rem;
+    align-items: start;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 3rem 2rem;
+    background: var(--offwhite);
+  }
+  .kairos-text {
+    font-family: var(--serif);
+    font-size: 1.19rem;
+    line-height: 1.82;
+    font-weight: 300;
+    color: var(--dark-gray);
+  }
+  .kairos-text strong {
+    font-weight: 400;
+  }
+  .kairos-text p + p {
+    margin-top: 1.5rem;
+  }
+  .kairos-bottle {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+  }
+
+  /* Vignes break */
+  .vignes-break {
+    width: 100%;
+    aspect-ratio: 21 / 9;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    margin: 0 0 2.5rem;
+  }
+
+  /* Nihil */
+  .nihil {
+    text-align: right;
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 1rem 3rem 3rem;
+    background: var(--offwhite);
+  }
+  .nihil p {
+    font-family: var(--serif);
+    font-size: 1.56rem;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--accent);
+    letter-spacing: .05em;
+  }
+
+  /* Archive photos */
+  .archive-photos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+    width: 100%;
+  }
+  .archive-photos img {
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    width: 100%;
+    display: block;
+  }
+
+  /* Mobile */
+  @media (max-width: 600px) {
+    .hero-titre {
+      padding: 5rem 1.5rem 2rem;
+    }
+    .hero-histoire {
+      grid-template-columns: 1fr;
+      padding: 0 1.5rem 2rem;
+    }
+    .hero-photo {
+      padding-right: 0;
+      margin-bottom: 1.5rem;
+    }
+    .hero-photo img {
+      aspect-ratio: 4 / 5;
+    }
+    .text-col {
+      padding: 2.5rem 1.5rem;
+    }
+    .kairos-section {
+      grid-template-columns: 1fr;
+      padding: 0 1.5rem 2rem;
+    }
+    .kairos-bottle {
+      aspect-ratio: 4 / 3;
+    }
+    .nihil {
+      padding: 3rem 1.5rem 2.5rem;
+    }
+    .archive-photos {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

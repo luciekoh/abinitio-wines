@@ -1,0 +1,84 @@
+{
+  "$ref": "#/definitions/salons",
+  "definitions": {
+    "salons": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "name_en": {
+          "type": "string"
+        },
+        "start_date": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "integer",
+              "format": "unix-time"
+            }
+          ]
+        },
+        "end_date": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "integer",
+              "format": "unix-time"
+            }
+          ]
+        },
+        "city": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string",
+          "default": "France"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "pro",
+            "public",
+            "mixte"
+          ]
+        },
+        "url": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        },
+        "notes_en": {
+          "type": "string"
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "start_date",
+        "end_date",
+        "city",
+        "type"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

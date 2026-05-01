@@ -1,0 +1,19 @@
+{
+  "items": [
+    { "name": "Manoir de Régate", "town": "Nantes" },
+    { "name": "Château de Maubreuil", "town": "Carquefou" },
+    { "name": "Panorama", "town": "Romainville" },
+    { "name": "Gush!", "town": "Paris" },
+    { "name": "Etna Mazarine", "town": "Paris" },
+    { "name": "Auberge de la Madeleine", "town": "Gétigné" },
+    { "name": "Le Saint Paul", "town": "Préfailles" },
+    { "name": "La Part Belle", "town": "Cangey" },
+    { "name": "Sybarite", "town": "Pornic" },
+    { "name": "Cave de la Ria", "town": "Pornic" },
+    { "name": "La Cave des Quais", "town": "Paris" },
+    { "name": "Cave la Félicité", "town": "Paris" },
+    { "name": "Caves de Prague", "town": "Paris" },
+    { "name": "Antinéa", "town": "Nantes" },
+    { "name": "Muscadothèque", "town": "Nantes" }
+  ]
+}

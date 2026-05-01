@@ -1,0 +1,203 @@
+backend:
+  name: github
+  repo: luciekoh/abinitio-wines
+  branch: main
+
+media_folder: "src/assets/images"
+public_folder: "/images"
+
+collections:
+  - name: wines
+    label: "Vins"
+    folder: "src/content/wines"
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: yaml-frontmatter
+    fields:
+      - { label: "Nom", name: "name", widget: "string" }
+      - { label: "Millésime (année)", name: "vintage", widget: "number", value_type: "int" }
+      - { label: "Couleur", name: "color", widget: "select", options: ["blanc", "rouge"] }
+      - { label: "Catégorie", name: "category", widget: "select", options: ["philosophie", "copains"] }
+      - { label: "Cépages", name: "grapes", widget: "string" }
+      - { label: "Image étiquette", name: "label", widget: "image" }
+      - { label: "Température de service", name: "servir", widget: "string" }
+      - { label: "Terroir", name: "terroir", widget: "string" }
+      - { label: "Taille", name: "taille", widget: "string" }
+      - { label: "Certification", name: "certification", widget: "string" }
+      - { label: "Vendanges", name: "vendanges", widget: "string" }
+      - label: "Analyse"
+        name: "analyse"
+        widget: "object"
+        fields:
+          - { label: "Soufre total", name: "soufre_total", widget: "string" }
+          - { label: "Soufre libre", name: "soufre_libre", widget: "string" }
+          - { label: "Alcool", name: "alcool", widget: "string" }
+          - { label: "Appellation", name: "appellation", widget: "string" }
+      - label: "Signification du nom"
+        name: "nameMeaning"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "FR", name: "fr", widget: "text" }
+          - { label: "EN", name: "en", widget: "text" }
+      - label: "Slogan"
+        name: "slogan"
+        widget: "object"
+        fields:
+          - { label: "FR", name: "fr", widget: "string" }
+          - { label: "EN", name: "en", widget: "string" }
+      - label: "À propos"
+        name: "about"
+        widget: "object"
+        fields:
+          - { label: "FR", name: "fr", widget: "text" }
+          - { label: "EN", name: "en", widget: "text" }
+      - label: "Millésime (notes)"
+        name: "millesime"
+        widget: "object"
+        fields:
+          - { label: "FR", name: "fr", widget: "text" }
+          - { label: "EN", name: "en", widget: "text" }
+      - label: "Vinification"
+        name: "vinification"
+        widget: "object"
+        fields:
+          - { label: "FR", name: "fr", widget: "text" }
+          - { label: "EN", name: "en", widget: "text" }
+      - label: "Dégustation"
+        name: "degustation"
+        widget: "object"
+        fields:
+          - { label: "FR", name: "fr", widget: "text" }
+          - { label: "EN", name: "en", widget: "text" }
+      - label: "Accords mets"
+        name: "table"
+        widget: "object"
+        fields:
+          - { label: "FR", name: "fr", widget: "text" }
+          - { label: "EN", name: "en", widget: "text" }
+
+  - name: events
+    label: "Salons"
+    folder: "src/content/events"
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: yaml-frontmatter
+    fields:
+      - { label: "Nom", name: "name", widget: "string" }
+      - { label: "Date début", name: "date", widget: "string" }
+      - { label: "Date fin", name: "dateEnd", widget: "string", required: false }
+      - { label: "Lieu", name: "location", widget: "string" }
+      - label: "Description"
+        name: "description"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "FR", name: "fr", widget: "text", required: false }
+          - { label: "EN", name: "en", widget: "text", required: false }
+
+  - name: stockists
+    label: "Distributeurs"
+    folder: "src/content/stockists"
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: yaml-frontmatter
+    fields:
+      - { label: "Nom", name: "name", widget: "string" }
+      - { label: "Ville", name: "city", widget: "string" }
+      - { label: "Pays", name: "country", widget: "select", options: ["France", "Allemagne", "Belgique", "Pays-Bas", "Japon"] }
+      - { label: "Latitude", name: "lat", widget: "number", value_type: "float" }
+      - { label: "Longitude", name: "lng", widget: "number", value_type: "float" }
+
+  - name: salons
+    label: "Salons"
+    label_singular: "Salon"
+    folder: "src/content/salons"
+    create: true
+    slug: "{{year}}-{{slug}}"
+    extension: md
+    format: yaml-frontmatter
+    fields:
+      - { label: "Nom du salon", name: "name", widget: "string" }
+      - { label: "Nom (EN, si différent)", name: "name_en", widget: "string", required: false }
+      - { label: "Date de début", name: "start_date", widget: "date", format: "YYYY-MM-DD" }
+      - { label: "Date de fin", name: "end_date", widget: "date", format: "YYYY-MM-DD" }
+      - { label: "Ville", name: "city", widget: "string" }
+      - { label: "Pays", name: "country", widget: "string", default: "France" }
+      - label: "Type"
+        name: "type"
+        widget: "select"
+        options:
+          - { label: "Professionnels", value: "pro" }
+          - { label: "Public", value: "public" }
+          - { label: "Pro et Public", value: "mixte" }
+        default: "pro"
+      - { label: "Site du salon (URL)", name: "url", widget: "string", required: false }
+      - { label: "Notes (FR)", name: "notes", widget: "markdown", required: false }
+      - { label: "Notes (EN)", name: "notes_en", widget: "markdown", required: false }
+
+  - name: partners
+    label: "Partenaires (HP)"
+    files:
+      - name: partners_list
+        label: "Liste des partenaires"
+        file: "src/content/partners/list.json"
+        fields:
+          - name: "items"
+            label: "Adresses"
+            widget: "list"
+            fields:
+              - { name: "name", label: "Nom", widget: "string" }
+              - { name: "town", label: "Ville", widget: "string" }
+
+  - name: homepage
+    label: "Page d'accueil"
+    files:
+      - name: pro-cta
+        label: "CTA Professionnels + Trust Strip"
+        file: "src/content/homepage/pro-cta.md"
+        format: yaml-frontmatter
+        fields:
+          - label: "Titre CTA"
+            name: "ctaHeading"
+            widget: "object"
+            fields:
+              - { label: "FR", name: "fr", widget: "string" }
+              - { label: "EN", name: "en", widget: "string" }
+          - label: "Sous-titre CTA"
+            name: "ctaSubtitle"
+            widget: "object"
+            fields:
+              - { label: "FR", name: "fr", widget: "string" }
+              - { label: "EN", name: "en", widget: "string" }
+          - label: "Texte bouton CTA"
+            name: "ctaButtonText"
+            widget: "object"
+            fields:
+              - { label: "FR", name: "fr", widget: "string" }
+              - { label: "EN", name: "en", widget: "string" }
+          - label: "Lien bouton CTA"
+            name: "ctaButtonLink"
+            widget: "string"
+          - label: "En-tête trust strip"
+            name: "trustHeader"
+            widget: "object"
+            fields:
+              - { label: "FR", name: "fr", widget: "string" }
+              - { label: "EN", name: "en", widget: "string" }
+          - label: "Noms partenaires"
+            name: "trustNames"
+            widget: "list"
+            field: { label: "Nom", name: "name", widget: "string" }
+          - label: "Texte lien trust strip"
+            name: "trustLinkText"
+            widget: "object"
+            fields:
+              - { label: "FR", name: "fr", widget: "string" }
+              - { label: "EN", name: "en", widget: "string" }
+          - label: "URL lien trust strip"
+            name: "trustLinkUrl"
+            widget: "string"

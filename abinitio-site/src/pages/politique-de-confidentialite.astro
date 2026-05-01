@@ -1,0 +1,83 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Base title="Politique de confidentialité — Ab Initio" description="Politique de confidentialité du site Ab Initio, vins biologiques, Loire.">
+  <Nav />
+  <main class="legal-page">
+    <h1>Politique de confidentialité</h1>
+
+    <h2>Responsable du traitement</h2>
+    <p>
+      SAS AB INITIO<br />
+      Clos de l'Écu, 44430 Le Landreau, France<br />
+      <a href="mailto:contact@abinitio-wines.com">contact@abinitio-wines.com</a>
+    </p>
+
+    <h2>Données collectées</h2>
+    <p>Ce site utilise des outils d'analyse de trafic pour améliorer votre expérience. Ces outils sont soumis à votre consentement via le bandeau cookies affiché lors de votre première visite.</p>
+
+    <h2>Cookies</h2>
+    <p>Ce site utilise les cookies suivants, activés uniquement après votre consentement :</p>
+    <p>Google Analytics (Google LLC) : mesure d'audience, pages visitées, durée des visites. Données anonymisées.</p>
+    <p>Microsoft Clarity (Microsoft) : analyse du comportement de navigation (clics, défilement). Données anonymisées.</p>
+    <p>Vous pouvez modifier vos préférences à tout moment en cliquant sur l'icône cookies en bas de page ou en visitant <a href="#tarteaucitron">#tarteaucitron</a>.</p>
+    <p>Les cookies strictement nécessaires au fonctionnement du site ne requièrent pas de consentement.</p>
+
+    <h2>Vos droits</h2>
+    <p>Conformément au Règlement Général sur la Protection des Données (RGPD — Règlement UE 2016/679), vous disposez d'un droit d'accès, de rectification, de suppression et de portabilité de vos données, ainsi que d'un droit d'opposition et de limitation du traitement. Pour exercer ces droits, contactez-nous : <a href="mailto:contact@abinitio-wines.com">contact@abinitio-wines.com</a></p>
+
+    <h2>Mise à jour</h2>
+    <p>La présente politique peut être modifiée à tout moment. Dernière mise à jour : avril 2026.</p>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .legal-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 8rem 2rem 4rem;
+    font-family: var(--sans);
+    color: var(--dark-gray);
+  }
+
+  .legal-page h1 {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    font-weight: 300;
+    margin-bottom: 3rem;
+    color: var(--dark-gray);
+  }
+
+  .legal-page h2 {
+    font-family: var(--sans);
+    font-size: .65rem;
+    font-weight: 400;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin-top: 2.5rem;
+    margin-bottom: .8rem;
+  }
+
+  .legal-page p {
+    font-size: .88rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--mid-gray);
+    margin-bottom: 1rem;
+  }
+
+  .legal-page a {
+    color: var(--dark-gray);
+    border-bottom: 1px solid transparent;
+    transition: border-color .3s;
+  }
+
+  .legal-page a:hover {
+    border-bottom-color: var(--dark-gray);
+  }
+</style>

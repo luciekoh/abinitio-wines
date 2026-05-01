@@ -1,0 +1,134 @@
+{
+  "$ref": "#/definitions/wines",
+  "definitions": {
+    "wines": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "vintage": {
+          "type": "number"
+        },
+        "color": {
+          "type": "string",
+          "enum": [
+            "blanc",
+            "rouge"
+          ]
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "philosophie",
+            "copains"
+          ]
+        },
+        "grapes": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "servir": {
+          "type": "string"
+        },
+        "terroir": {
+          "type": "string"
+        },
+        "taille": {
+          "type": "string"
+        },
+        "certification": {
+          "type": "string"
+        },
+        "vendanges": {
+          "type": "string"
+        },
+        "analyse": {
+          "type": "object",
+          "properties": {
+            "soufre_total": {
+              "type": "string"
+            },
+            "soufre_libre": {
+              "type": "string"
+            },
+            "alcool": {
+              "type": "string"
+            },
+            "appellation": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "soufre_total",
+            "soufre_libre",
+            "alcool",
+            "appellation"
+          ],
+          "additionalProperties": false
+        },
+        "nameMeaning": {
+          "type": "object",
+          "properties": {
+            "fr": {
+              "type": "string"
+            },
+            "en": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "fr",
+            "en"
+          ],
+          "additionalProperties": false
+        },
+        "slogan": {
+          "$ref": "#/definitions/wines/properties/nameMeaning"
+        },
+        "about": {
+          "$ref": "#/definitions/wines/properties/nameMeaning"
+        },
+        "millesime": {
+          "$ref": "#/definitions/wines/properties/nameMeaning"
+        },
+        "vinification": {
+          "$ref": "#/definitions/wines/properties/nameMeaning"
+        },
+        "degustation": {
+          "$ref": "#/definitions/wines/properties/nameMeaning"
+        },
+        "table": {
+          "$ref": "#/definitions/wines/properties/nameMeaning"
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "vintage",
+        "color",
+        "category",
+        "grapes",
+        "label",
+        "servir",
+        "terroir",
+        "taille",
+        "certification",
+        "vendanges",
+        "analyse",
+        "slogan",
+        "about",
+        "millesime",
+        "vinification",
+        "degustation",
+        "table"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

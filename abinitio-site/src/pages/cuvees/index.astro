@@ -1,0 +1,439 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import SeoBreadcrumbs from '../../components/SeoBreadcrumbs.astro';
+import partnersData from '../../content/partners/list.json';
+const partners = partnersData.items;
+
+const wines = await getCollection('wines');
+const philosophie = wines.filter((w) => w.data.category === 'philosophie');
+const copains = wines.filter((w) => w.data.category === 'copains');
+
+// Sort to match desired order
+const philoOrder = ['philia', 'eidos', 'logos', 'kedron', 'kairos'];
+const copOrder = ['presto', 'ekko', 'illico'];
+philosophie.sort((a, b) => philoOrder.indexOf(a.id) - philoOrder.indexOf(b.id));
+copains.sort((a, b) => copOrder.indexOf(a.id) - copOrder.indexOf(b.id));
+
+const bottleImages = import.meta.glob('/src/assets/images/bottles/*.{jpg,jpeg,png}', { eager: true });
+const labelImages = import.meta.glob('/src/assets/images/labels/*.{jpg,jpeg,png}', { eager: true });
+
+function getBottle(slug: string) {
+  return (bottleImages[`/src/assets/images/bottles/${slug}.jpg`] as any)?.default;
+}
+function getLabel(slug: string) {
+  return (labelImages[`/src/assets/images/labels/${slug}.jpg`] as any)?.default
+    || (labelImages[`/src/assets/images/labels/${slug}.jpeg`] as any)?.default;
+}
+---
+
+<Base
+  title="Nos Cuvées — Vins biologiques Ab Initio, Muscadet & Rhône"
+  description="Découvrez les cuvées Ab Initio : vins biologiques élevés en amphore par Emmanuel Roblin. Folle Blanche, Melon de Bourgogne, Chardonnay, Gamay, Grenache. Muscadet nantais et Vallée du Rhône."
+>
+  <Nav />
+
+  <SeoBreadcrumbs items={[
+    { name: 'Accueil', url: '/' },
+    { name: 'Cuvées', url: '/cuvees' },
+  ]} />
+
+  <!-- Banner -->
+  <div class="cuvees-banner">
+    <div class="cuvees-banner-inner">
+      <h1 class="cuvees-banner-title">Nos Cuvées</h1>
+      <p class="cuvees-banner-sub">Vins bio d'auteur – par Emmanuel Roblin, artisan vinificateur</p>
+    </div>
+  </div>
+
+  <!-- Wine Grid -->
+  <section class="cuvees-grid-section">
+    <!-- Philosophie -->
+    <div class="cuvees-category">
+      <div class="cuvees-category-header">
+        <span class="cuvees-cat-name">Vins de la Philosophie</span>
+        <span class="cuvees-cat-desc">Élevés en amphore, nés de la patience</span>
+      </div>
+      <div class="cuvees-grid">
+        {philosophie.map((wine) => {
+          const bottle = getBottle(wine.id);
+          const label = getLabel(wine.id);
+          return (
+            <a href={`/cuvees/${wine.id}`} class="cuvees-card">
+              <div class="cuvees-card-img">
+                {bottle && <img class="cuvees-bottle" src={bottle.src} alt={`Bouteille ${wine.data.name} ${wine.data.vintage}`} loading="lazy" />}
+                {label && <img class="cuvees-label" src={label.src} alt={`Étiquette ${wine.data.name} ${wine.data.vintage}`} loading="lazy" />}
+                <div class="cuvees-card-overlay">
+                  <span>Découvrir →</span>
+                </div>
+              </div>
+              <div class="cuvees-card-text">
+                <span class="cuvees-card-name">{wine.data.name}</span>
+                <span class="cuvees-card-vintage">{wine.data.vintage} · {wine.data.color === 'blanc' ? 'Blanc' : 'Rouge'}</span>
+                <span class="cuvees-card-slogan">{wine.data.slogan.fr}</span>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+
+    <!-- Copains -->
+    <div class="cuvees-category">
+      <div class="cuvees-category-header">
+        <span class="cuvees-cat-name">Vins des Copains</span>
+        <span class="cuvees-cat-desc">L'élan, le partage, la joie immédiate</span>
+      </div>
+      <div class="cuvees-grid">
+        {copains.map((wine) => {
+          const bottle = getBottle(wine.id);
+          const label = getLabel(wine.id);
+          return (
+            <a href={`/cuvees/${wine.id}`} class="cuvees-card">
+              <div class="cuvees-card-img">
+                {bottle && <img class="cuvees-bottle" src={bottle.src} alt={`Bouteille ${wine.data.name} ${wine.data.vintage}`} loading="lazy" />}
+                {label && <img class="cuvees-label" src={label.src} alt={`Étiquette ${wine.data.name} ${wine.data.vintage}`} loading="lazy" />}
+                <div class="cuvees-card-overlay">
+                  <span>Découvrir →</span>
+                </div>
+              </div>
+              <div class="cuvees-card-text">
+                <span class="cuvees-card-name">{wine.data.name}</span>
+                <span class="cuvees-card-vintage">{wine.data.vintage} · {wine.data.color === 'blanc' ? 'Blanc' : 'Rouge'}</span>
+                <span class="cuvees-card-slogan">{wine.data.slogan.fr}</span>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cuvees-cta">
+    <div class="cuvees-cta-inner">
+      <div class="cuvees-cta-text">
+        <h3>Professionnel·le du vin ?</h3>
+        <p>Tarifs, animations, accords — parlons-en ensemble.</p>
+      </div>
+      <a href="mailto:contact@abinitio-wines.com" class="cuvees-cta-btn">Nous contacter</a>
+    </div>
+  </div>
+
+  <!-- Trust strip -->
+  <div class="cuvees-trust">
+    <div class="cuvees-trust-inner">
+      <span class="cuvees-trust-header">Ravis de travailler avec les passionné·es</span>
+      <p class="trust-line">
+        {partners.map((p) => (
+          <span class="partner-unit">{p.name} <span class="place">{p.town}</span><span class="sep">·</span></span>
+        ))}
+        <span class="more">et aussi…</span>
+      </p>
+    </div>
+  </div>
+
+  <Footer />
+</Base>
+
+<style>
+  /* Banner */
+  .cuvees-banner {
+    background: var(--offwhite);
+    padding: clamp(5rem, 8vw, 7rem) 2rem clamp(2rem, 4vw, 3rem);
+    text-align: center;
+  }
+  .cuvees-banner-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .cuvees-banner-label {
+    font-family: var(--sans);
+    font-size: .72rem;
+    font-weight: 400;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    display: block;
+    margin-bottom: 1rem;
+  }
+  .cuvees-banner-title {
+    font-family: var(--display);
+    font-size: clamp(2.4rem, 6vw, 3.2rem);
+    letter-spacing: .08em;
+    color: var(--dark-gray);
+    margin-bottom: .8rem;
+  }
+  .cuvees-banner-sub {
+    font-family: var(--sans);
+    font-size: .72rem;
+    font-weight: 400;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin-top: .6rem;
+  }
+
+  /* Grid Section */
+  .cuvees-grid-section {
+    background: var(--offwhite);
+    padding: clamp(.5rem, 1vw, 1rem) clamp(1.5rem, 5vw, 4rem);
+  }
+
+  .cuvees-category {
+    max-width: 1200px;
+    margin: 0 auto 3.5rem;
+  }
+
+  .cuvees-category-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    padding-bottom: .75rem;
+    border-bottom: 1px solid rgba(44, 42, 38, .1);
+  }
+
+  .cuvees-cat-name {
+    font-family: var(--display);
+    font-size: 1.4rem;
+    letter-spacing: .1em;
+    color: var(--accent);
+  }
+
+  .cuvees-cat-desc {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--mid-gray);
+  }
+
+  .cuvees-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2rem;
+  }
+
+  /* Card */
+  .cuvees-card {
+    display: block;
+  }
+
+  .cuvees-card-img {
+    aspect-ratio: 3 / 5;
+    background: transparent;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: .8rem;
+  }
+
+  .cuvees-bottle {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 0;
+    mix-blend-mode: multiply;
+    transform: scale(1.2);
+    z-index: 2;
+    opacity: 1;
+    transition: opacity .4s ease;
+  }
+
+  .cuvees-label {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity .4s ease;
+  }
+
+  .cuvees-card:hover .cuvees-bottle {
+    opacity: 0;
+  }
+
+  .cuvees-card:hover .cuvees-label {
+    opacity: 1;
+  }
+
+  .cuvees-card-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    background: rgba(10, 10, 8, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .3s;
+  }
+
+  .cuvees-card-overlay span {
+    font-family: var(--sans);
+    font-size: .68rem;
+    font-weight: 400;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: #f5f2eb;
+    opacity: 0;
+    transition: opacity .3s;
+  }
+
+  .cuvees-card:hover .cuvees-card-overlay {
+    background: rgba(10, 10, 8, .3);
+  }
+
+  .cuvees-card:hover .cuvees-card-overlay span {
+    opacity: 1;
+  }
+
+  .cuvees-card-text {
+    display: flex;
+    flex-direction: column;
+    gap: .15rem;
+  }
+
+  .cuvees-card-name {
+    font-family: var(--sans);
+    font-size: .94rem;
+    font-weight: 400;
+    letter-spacing: .06em;
+    color: var(--dark-gray);
+  }
+
+  .cuvees-card-vintage {
+    font-family: var(--sans);
+    font-size: .75rem;
+    font-weight: 300;
+    color: var(--mid-gray);
+  }
+
+  .cuvees-card-slogan {
+    font-family: var(--serif);
+    font-size: .95rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--accent);
+    margin-top: .15rem;
+  }
+
+  /* CTA */
+  .cuvees-cta {
+    background: var(--cta-bg);
+    padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 5vw, 4rem);
+  }
+  .cuvees-cta-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .cuvees-cta-text {
+    flex: 1;
+    min-width: 260px;
+  }
+  .cuvees-cta-text h3 {
+    font-family: var(--serif);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 300;
+    color: var(--cta-heading);
+    margin-bottom: .4rem;
+  }
+  .cuvees-cta-text p {
+    font-family: var(--sans);
+    font-size: .85rem;
+    font-weight: 300;
+    color: var(--cta-subtitle);
+  }
+  .cuvees-cta-btn {
+    display: inline-block;
+    font-family: var(--sans);
+    font-size: .72rem;
+    font-weight: 400;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--cta-bg);
+    background: var(--offwhite);
+    padding: .85rem 2.8rem;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    transition: all .3s;
+  }
+  .cuvees-cta-btn:hover {
+    background: transparent;
+    border-color: var(--offwhite);
+    color: var(--offwhite);
+  }
+
+  /* Trust strip */
+  .cuvees-trust {
+    background: var(--cream);
+    padding: clamp(1.2rem, 2.5vw, 2rem) clamp(1.5rem, 5vw, 4rem);
+  }
+  .cuvees-trust-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .cuvees-trust-header {
+    display: block;
+    font-family: var(--sans);
+    font-size: .65rem;
+    font-weight: 400;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: rgba(10, 47, 106, .5);
+    margin-bottom: .8rem;
+  }
+  .trust-line {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    color: var(--accent);
+    line-height: 2.1;
+  }
+  .partner-unit {
+    display: inline;
+  }
+  .partner-unit .place {
+    font-family: var(--sans);
+    font-style: normal;
+    font-size: .78rem;
+    color: var(--accent);
+    letter-spacing: .04em;
+    margin-left: .3em;
+  }
+  .partner-unit .sep {
+    color: var(--accent);
+    opacity: .45;
+    margin: 0 .4rem 0 .8rem;
+  }
+  .trust-line .more {
+    color: var(--mid-gray);
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .cuvees-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (max-width: 640px) {
+    .cuvees-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2rem;
+    }
+    .cuvees-category-header {
+      flex-direction: column;
+      gap: .3rem;
+    }
+  }
+</style>

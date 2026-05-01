@@ -1,0 +1,46 @@
+---
+import amphoresImg from '../assets/images/photos/amphores-selection.jpg';
+---
+
+<div class="photo-break">
+  <img src={amphoresImg.src} alt="Amphores de vinification dans la cave d'Ab Initio" loading="lazy" />
+  <div class="photo-break-overlay">
+    <p class="photo-break-text fade-in">« Rien n'arrive sans raison. Chaque vin est le fruit d'une intention, d'un terroir, d'un instant saisi. »</p>
+  </div>
+</div>
+
+<style>
+  .photo-break {
+    height: 60vh;
+    min-height: 350px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .photo-break img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .photo-break-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(10, 10, 8, .25);
+  }
+
+  .photo-break-text {
+    font-family: var(--serif);
+    font-size: clamp(1rem, 2.2vw, 1.5rem);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--offwhite);
+    text-align: center;
+    max-width: 520px;
+    padding: 0 2rem;
+  }
+</style>

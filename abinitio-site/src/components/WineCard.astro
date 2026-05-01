@@ -1,0 +1,115 @@
+---
+interface Props {
+  name: string;
+  vintage: string;
+  color: string;
+  grapes: string;
+  imageSrc: string;
+  altText?: string;
+  href?: string;
+}
+
+const { name, vintage, color, grapes, imageSrc, altText, href = '#' } = Astro.props;
+---
+
+<a href={href} class="wine-card">
+  <div class="wine-artwork-wrap">
+    <img class="wine-artwork" src={imageSrc} alt={altText || `Étiquette ${name} ${vintage}`} loading="lazy" />
+    <div class="wine-overlay">
+      <span class="wine-overlay-text">Découvrir →</span>
+    </div>
+  </div>
+  <div class="wine-name">{name}</div>
+  <div class="wine-vintage">{vintage} · {color}</div>
+  <div class="wine-grapes">{grapes}</div>
+</a>
+
+<style>
+  .wine-card {
+    flex: 0 0 220px;
+    scroll-snap-align: start;
+    cursor: pointer;
+    transition: all .4s;
+    display: block;
+  }
+
+  .wine-card:hover .wine-artwork {
+    transform: scale(1.04);
+  }
+
+  .wine-artwork-wrap {
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    background: #1a1a17;
+    position: relative;
+  }
+
+  .wine-artwork {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .6s;
+  }
+
+  .wine-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 8, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .3s;
+  }
+
+  .wine-card:hover .wine-overlay {
+    background: rgba(10, 10, 8, .4);
+  }
+
+  .wine-overlay-text {
+    font-family: var(--sans);
+    font-size: .68rem;
+    font-weight: 400;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: #f5f2eb;
+    opacity: 0;
+    transition: opacity .3s;
+  }
+
+  .wine-card:hover .wine-overlay-text {
+    opacity: 1;
+  }
+
+  .wine-name {
+    font-family: var(--sans);
+    font-size: .94rem;
+    font-weight: 400;
+    letter-spacing: .06em;
+    margin-bottom: .15rem;
+    color: #fff;
+  }
+
+  .wine-vintage {
+    font-family: var(--sans);
+    font-size: .75rem;
+    font-weight: 300;
+    color: rgba(245, 242, 235, .65);
+    margin-bottom: .4rem;
+  }
+
+  .wine-grapes {
+    font-family: var(--sans);
+    font-size: .7rem;
+    font-weight: 300;
+    letter-spacing: .06em;
+    color: rgba(245, 242, 235, .5);
+  }
+
+  @media (min-width: 900px) {
+    .wine-card {
+      flex: 0 0 calc(20% - 1.2rem);
+      min-width: 170px;
+    }
+  }
+</style>
