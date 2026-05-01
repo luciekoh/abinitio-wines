@@ -56,13 +56,16 @@ import bateau from '../assets/histoire/parents-bateau.jpg';
     <div class="kairos-text">
       <p>L'année suivante, l'aventure commence vraiment : je vendange une parcelle de Gamay à la Providence et en fais mon premier vin, avec une amphore et le soutien administratif prêtés par Fred et Claire. <strong>Dix-huit mois plus tard, mon rêve devient réalité : le vin est mis en bouteille et baptisé Kaïros — le moment opportun, l'instant juste.</strong></p>
       <p><strong>Motivés par ce premier succès, Claire, Fred et moi créons AB Initio en août 2020.</strong> Moi dans le rôle d'artisan-vinificateur qui sélectionne les vignerons et les parcelles, crée et élabore les vins et les commercialise, avec l'indispensable soutien matériel et logistique de Fred et Claire. <strong>Une gamme de vins de passion, de philosophie et de copains.</strong></p>
+      <p>Le commencement — <em>initio</em> — des vins se trouve souvent dans la taille, un autre moment crucial ! Presto, une proposition singulière des trois cépages du Nantais, s'inspire d'une parcelle complantée. Philia, l'image des étés bretons chez grand-père pêcheur, est née en taillant des vieilles Folles Blanches sous une pluie battante.</p>
     </div>
-    <img src={kairos.src} alt="Bouteille Kaïros, première cuvée AB Initio" class="kairos-bottle" loading="lazy" />
+    <div class="kairos-right">
+      <img src={kairos.src} alt="Bouteille Kaïros, première cuvée AB Initio" class="kairos-bottle" loading="lazy" />
+      <p class="cuvees-link"><a href="/cuvees">Découvrir nos cuvées →</a></p>
+    </div>
   </div>
 
-  <!-- Text column — paras 5 & 6 -->
+  <!-- Text column — final -->
   <div class="text-col">
-    <p>Le commencement — <em>initio</em> — des vins se trouve souvent dans la taille, un autre moment crucial ! Presto, une proposition singulière des trois cépages du Nantais, s'inspire d'une parcelle complantée. Philia, l'image des étés bretons chez grand-père pêcheur, est née en taillant des vieilles Folles Blanches sous une pluie battante.</p>
     <p><strong>Pas à pas, je crée un univers à mon image.</strong> AB Initio est l'estuaire naturel de mon fleuve de vie (pas tranquille), un projet de conviction empreint de tout ce qui m'a formé, de tout ce qui m'est cher : mon grand-père et son bateau qui partait pêcher à la ligne dans la baie de Douarnenez, à Saint-Jean-de-Luz ou à Saint-Nazaire, où mes parents se marient et où je suis né. L'océan, force omniprésente pour ma famille. Une abondance de poissons, de crustacés, d'huîtres — le quotidien de mon enfance, naturellement reflété dans la personnalité de mes vins, dans la salinité, la tension, mais aussi la légèreté. Ma Bretagne, une ancre identitaire ; le Muscadet, un chez-moi adopté, un terroir découvert. Mes études de philosophie, mon besoin d'aller au fond des choses qu'on retrouve dans les noms des cuvées, dans le regard que je porte sur la vigne, le vin, l'humain. <strong>Tous ces moments de bascule, des rencontres qui nous font vibrer.</strong></p>
   </div>
 
@@ -71,10 +74,20 @@ import bateau from '../assets/histoire/parents-bateau.jpg';
     <p>Car rien n'arrive sans raison — <em>nihil fit sine causa…</em></p>
   </div>
 
+  <section class="histoire-cta">
+    <div class="histoire-cta-inner">
+      <div class="histoire-cta-text">
+        <p class="histoire-cta-title">Prochaine rencontre : vous.</p>
+        <p class="histoire-cta-sub">Ecrivons la suite de cette histoire sur votre carte des vins.</p>
+      </div>
+      <a href="mailto:contact@abinitio-wines.com" class="histoire-cta-btn">Contactez-nous</a>
+    </div>
+  </section>
+
   <!-- Archive photos -->
   <div class="archive-photos">
-    <img src={partners.src} alt="Emmanuel Roblin, Claire Niger et Fred Niger, associés AB Initio" loading="lazy" />
     <img src={bateau.src} alt="Mariage des parents d'Emmanuel à bord du Marc-Hélène" loading="lazy" />
+    <img src={partners.src} alt="Emmanuel Roblin, Claire Niger et Fred Niger, associés AB Initio" loading="lazy" />
   </div>
 
   <Footer />
@@ -140,7 +153,7 @@ import bateau from '../assets/histoire/parents-bateau.jpg';
   .hero-body {
     font-family: var(--serif);
     font-size: 1.19rem;
-    line-height: 1.82;
+    line-height: 1.65;
     font-weight: 300;
     color: var(--dark-gray);
     max-width: 480px;
@@ -185,7 +198,7 @@ import bateau from '../assets/histoire/parents-bateau.jpg';
   /* Kaïros section */
   .kairos-section {
     display: grid;
-    grid-template-columns: 1fr 240px;
+    grid-template-columns: 1fr 280px;
     gap: 3rem;
     align-items: start;
     max-width: 880px;
@@ -196,7 +209,7 @@ import bateau from '../assets/histoire/parents-bateau.jpg';
   .kairos-text {
     font-family: var(--serif);
     font-size: 1.19rem;
-    line-height: 1.82;
+    line-height: 1.65;
     font-weight: 300;
     color: var(--dark-gray);
   }
@@ -210,6 +223,7 @@ import bateau from '../assets/histoire/parents-bateau.jpg';
     width: 100%;
     aspect-ratio: 2 / 3;
     object-fit: cover;
+    padding-top: 48px;
   }
 
   /* Vignes break */
@@ -243,7 +257,7 @@ import bateau from '../assets/histoire/parents-bateau.jpg';
   .archive-photos {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 3px;
+    gap: 0;
     width: 100%;
   }
   .archive-photos img {
@@ -251,6 +265,90 @@ import bateau from '../assets/histoire/parents-bateau.jpg';
     object-fit: cover;
     width: 100%;
     display: block;
+  }
+
+  /* Pull quote */
+  .pull-quote {
+    max-width: 560px;
+    margin: 64px auto 56px;
+    padding-left: 24px;
+    border-left: 1.5px solid #c9a96e;
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--black);
+    line-height: 1.5;
+  }
+
+  /* Histoire CTA */
+  .histoire-cta {
+    background: var(--accent);
+    padding: 64px 48px;
+  }
+  .histoire-cta-inner {
+    max-width: 660px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .histoire-cta-text {
+    flex: 1;
+    min-width: 260px;
+  }
+  .histoire-cta-title {
+    font-family: var(--serif);
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--offwhite);
+    margin-bottom: 8px;
+  }
+  .histoire-cta-sub {
+    font-family: var(--sans);
+    font-size: .88rem;
+    font-weight: 300;
+    color: var(--offwhite);
+    opacity: .7;
+  }
+  .histoire-cta-btn {
+    display: inline-block;
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--offwhite);
+    padding: 12px 32px;
+    border: 1px solid rgba(245, 242, 235, .3);
+    transition: all .3s;
+    flex-shrink: 0;
+  }
+  .histoire-cta-btn:hover {
+    background: var(--offwhite);
+    color: var(--accent);
+  }
+
+  /* Cuvées link */
+  .cuvees-link {
+    margin-top: 16px;
+    font-family: var(--sans);
+    font-size: 0.86rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-align: right;
+  }
+  .cuvees-link a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 0.5px solid currentColor;
+    padding-bottom: 1px;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+  .cuvees-link a:hover {
+    opacity: 1;
   }
 
   /* Mobile */
