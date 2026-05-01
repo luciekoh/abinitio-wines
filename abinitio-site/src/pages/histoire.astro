@@ -74,6 +74,8 @@ import bateau from '../assets/histoire/parents-bateau.jpg';
     <p>Car rien n'arrive sans raison — <em>nihil fit sine causa…</em></p>
   </div>
 
+  <p class="author-signature">— Emmanuel Roblin, artisan vinificateur</p>
+
   <section class="histoire-cta">
     <div class="histoire-cta-inner">
       <div class="histoire-cta-text">
@@ -115,6 +117,17 @@ import bateau from '../assets/histoire/parents-bateau.jpg';
     font-size: clamp(2.8rem, 7vw, 3.6rem);
     letter-spacing: .08em;
     color: var(--dark-gray);
+  }
+
+  .author-signature {
+    text-align: right;
+    font-family: var(--sans);
+    font-size: 0.83rem;
+    letter-spacing: 0.12em;
+    color: var(--mid-gray);
+    max-width: 660px;
+    margin: 0 auto 48px;
+    padding: 0 48px;
   }
 
   /* Hero — photo left, text right */
@@ -354,7 +367,7 @@ import bateau from '../assets/histoire/parents-bateau.jpg';
   /* Mobile */
   @media (max-width: 600px) {
     .hero-titre {
-      padding: 5rem 1.5rem 2rem;
+      padding: 7.5rem 1.5rem 2rem;
     }
     .hero-histoire {
       grid-template-columns: 1fr;
@@ -370,12 +383,15 @@ import bateau from '../assets/histoire/parents-bateau.jpg';
     .text-col {
       padding: 2.5rem 1.5rem;
     }
+    .vignes-break {
+      aspect-ratio: 16 / 9;
+    }
     .kairos-section {
       grid-template-columns: 1fr;
       padding: 0 1.5rem 2rem;
     }
     .kairos-bottle {
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 2 / 3;
     }
     .nihil {
       padding: 3rem 1.5rem 2.5rem;
