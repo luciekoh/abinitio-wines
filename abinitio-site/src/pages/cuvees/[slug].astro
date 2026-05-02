@@ -224,7 +224,7 @@ const techSheets = [
   .wine-hero {
     display: grid;
     grid-template-columns: 40% 60%;
-    padding-top: clamp(4rem, 6vw, 5rem);
+    padding: clamp(4rem, 6vw, 5rem) 0 0 0;
     background: var(--offwhite);
     align-items: center;
   }
@@ -516,6 +516,7 @@ const techSheets = [
   @media (max-width: 768px) {
     .wine-hero {
       grid-template-columns: 1fr;
+      padding-top: 5.5rem;
     }
     .wine-hero-right {
       order: -1;

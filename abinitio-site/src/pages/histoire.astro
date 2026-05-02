@@ -21,6 +21,14 @@ import bateau from '../assets/histoire/parents-bateau.jpg';
     { name: 'Accueil', url: '/' },
     { name: 'Histoire', url: '/histoire' },
   ]} />
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Emmanuel Roblin",
+    "jobTitle": "Artisan vinificateur",
+    "worksFor": { "@type": "Organization", "name": "Ab Initio" },
+    "url": "https://www.abinitio-wines.com/histoire"
+  })} />
 
   <!-- 1. Hero title -->
   <div class="hero-titre">
@@ -116,7 +124,7 @@ import bateau from '../assets/histoire/parents-bateau.jpg';
     font-family: var(--display);
     font-size: clamp(2.8rem, 7vw, 3.6rem);
     letter-spacing: .08em;
-    color: var(--dark-gray);
+    color: var(--black);
   }
 
   .author-signature {
@@ -367,7 +375,7 @@ import bateau from '../assets/histoire/parents-bateau.jpg';
   /* Mobile */
   @media (max-width: 600px) {
     .hero-titre {
-      padding: 7.5rem 1.5rem 2rem;
+      padding-left: 1.5rem; padding-right: 1.5rem;
     }
     .hero-histoire {
       grid-template-columns: 1fr;

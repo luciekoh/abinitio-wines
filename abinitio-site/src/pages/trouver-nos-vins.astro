@@ -1,0 +1,512 @@
+---
+import Base from '../layouts/Base.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import SeoBreadcrumbs from '../components/SeoBreadcrumbs.astro';
+import { getCollection } from 'astro:content';
+
+const importeurs = (await getCollection('importeurs')).sort((a, b) => a.data.ordre - b.data.ordre);
+const pdv = (await getCollection('points_de_vente')).sort((a, b) => a.data.ordre - b.data.ordre);
+
+// Group points de vente by region
+const regionOrder = ['Loire-Atlantique', 'Centre-Val de Loire', 'Paris · Île-de-France'];
+const pdvByRegion = pdv.reduce<Record<string, typeof pdv>>((acc, p) => {
+  const key = p.data.region;
+  if (!acc[key]) acc[key] = [];
+  acc[key].push(p);
+  return acc;
+}, {});
+const regions = regionOrder.filter(r => pdvByRegion[r]);
+
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Points de vente et importateurs Ab Initio",
+  "description": "Sélection de cavistes, restaurants et importateurs distribuant les vins Ab Initio en France et en Europe",
+  "itemListElement": [
+    ...importeurs.map((imp, i) => ({
+      "@type": "ListItem", "position": i + 1,
+      "item": { "@type": "Store", "name": imp.data.nom, "url": imp.data.url, "address": { "@type": "PostalAddress", "addressLocality": imp.data.ville } }
+    })),
+    ...pdv.map((p, i) => ({
+      "@type": "ListItem", "position": importeurs.length + i + 1,
+      "item": { "@type": "FoodEstablishment", "name": p.data.nom, ...(p.data.url ? { "url": p.data.url } : {}), "address": { "@type": "PostalAddress", "addressLocality": p.data.ville, "addressCountry": "FR" } }
+    }))
+  ]
+};
+---
+
+<Base
+  title="Trouver nos vins Ab Initio — vins naturels Loire, cavistes et restaurants · France et Europe"
+  description="Retrouvez les vins naturels Ab Initio chez nos partenaires cavistes, bars à vin et restaurants dans le Muscadet et toute la France, ainsi qu'auprès de nos importateurs en Allemagne, Pays-Bas, République Tchèque et Irlande."
+>
+  <Nav />
+  <SeoBreadcrumbs items={[
+    { name: 'Accueil', url: '/' },
+    { name: 'Trouver nos vins', url: '/trouver-nos-vins' },
+  ]} />
+
+  <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+
+  <!-- Hero -->
+  <div class="tnv-hero">
+    <span class="tnv-eyebrow">Réseau</span>
+    <h1>Trouver nos vins</h1>
+    <p class="tnv-subtitle">Retrouvez nos vins chez une sélection de cavistes, bars à vin et restaurants engagés dans le Muscadet et toute la France, et chez nos distributeurs au-delà.</p>
+    <div class="section-toggle">
+      <button class="toggle-btn active" data-panel="france">En France</button>
+      <button class="toggle-btn" data-panel="etranger">À l'étranger</button>
+    </div>
+  </div>
+
+  <!-- France panel -->
+  <div id="panel-france" class="toggle-panel">
+    <section class="tnv-light">
+      <div class="tnv-inner">
+        <span class="tnv-eyebrow-light">En France</span>
+        <h2 class="tnv-h2-light">Bars, caves, restaurants...</h2>
+        <div class="tnv-notice">
+          <p>Une sélection de nos partenaires. <a href="mailto:contact@abinitio-wines.com">Écrivez-nous</a> si vous ne trouvez pas une adresse près de chez vous.</p>
+        </div>
+
+        {regions.map(region => {
+          const places = pdvByRegion[region];
+          const dept = places[0].data.dept;
+          const label = dept === '75' ? region : `${region} (${dept})`;
+          return (
+            <div class="dept-block">
+              <div class="dept-label">{label}</div>
+              <div class="places-grid">
+                {places.map((p, i) => (
+                  <div class:list={['place-item', { 'place-odd': i % 2 === 0, 'place-even': i % 2 !== 0 }]}>
+                    {p.data.url ? (
+                      <a href={p.data.url} target="_blank" rel="noopener noreferrer" class="place-name">{p.data.nom}</a>
+                    ) : (
+                      <span class="place-name">{p.data.nom}</span>
+                    )}
+                    <span class="place-city">{p.data.ville}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  </div>
+
+  <!-- Importers panel -->
+  <div id="panel-etranger" class="toggle-panel" hidden>
+    <section class="tnv-importers">
+      <div class="tnv-inner">
+        <span class="tnv-eyebrow-light">À l'étranger</span>
+        <h2 class="tnv-h2-light">Nos importateurs</h2>
+        <div class="imp-list">
+          {importeurs.map((imp, i) => (
+            <div class:list={['imp-row', { 'imp-row-last': i === importeurs.length - 1 }]}>
+              <span class="imp-country">{imp.data.pays}</span>
+              {imp.data.url ? (
+                <a href={imp.data.url} target="_blank" rel="noopener noreferrer" class="imp-name">{imp.data.nom}</a>
+              ) : (
+                <span class="imp-name">{imp.data.nom}</span>
+              )}
+              <span class="imp-city">{imp.data.ville}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- CTA band -->
+  <div class="tnv-cta">
+    <div class="tnv-cta-inner">
+      <div class="tnv-cta-text">
+        <span class="tnv-cta-eyebrow" id="cta-eyebrow">Professionnels du vin</span>
+        <h3 id="cta-headline">Vous souhaitez référencer nos vins ?</h3>
+        <p id="cta-sub">Tarifs, animations, accords mets-vins — on vous écoute.</p>
+      </div>
+      <a href="mailto:contact@abinitio-wines.com" class="tnv-cta-btn">Nous contacter</a>
+    </div>
+  </div>
+
+  <!-- B2C strip -->
+  <div class="tnv-b2c">
+    <p>Pas de point de vente près de chez vous ? <a href="mailto:contact@abinitio-wines.com">Écrivez-nous.</a></p>
+  </div>
+
+  <Footer />
+
+  <script>
+    const ctaFrance = {
+      eyebrow: 'Professionnels du vin',
+      headline: 'Vous souhaitez référencer nos vins ?',
+      sub: 'Tarifs, animations, accords mets-vins — on vous écoute.'
+    };
+    const ctaExport = {
+      eyebrow: 'Export & distribution',
+      headline: 'Vous souhaitez distribuer nos vins à l\'export ?',
+      sub: 'Tarifs, modalités, territoires disponibles — parlons-en.'
+    };
+
+    document.querySelectorAll('.toggle-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.toggle-panel').forEach(p => p.hidden = true);
+        btn.classList.add('active');
+        document.getElementById('panel-' + btn.dataset.panel).hidden = false;
+
+        const cta = btn.dataset.panel === 'france' ? ctaFrance : ctaExport;
+        document.getElementById('cta-eyebrow').textContent = cta.eyebrow;
+        document.getElementById('cta-headline').textContent = cta.headline;
+        document.getElementById('cta-sub').textContent = cta.sub;
+      });
+    });
+  </script>
+</Base>
+
+<style>
+  /* Hero */
+  .tnv-hero {
+    background: var(--offwhite);
+    text-align: center;
+    padding: clamp(5rem, 8vw, 7rem) 3rem clamp(2.5rem, 4vw, 3.5rem);
+    border-bottom: .5px solid rgba(10, 10, 8, .09);
+  }
+  .tnv-eyebrow {
+    font-family: var(--sans);
+    font-size: .72rem;
+    font-weight: 400;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    display: block;
+    margin-bottom: .8rem;
+  }
+  .tnv-hero h1 {
+    font-family: var(--display);
+    font-size: clamp(2.8rem, 7vw, 3.6rem);
+    letter-spacing: .08em;
+    color: var(--black);
+    margin-bottom: 1.2rem;
+  }
+  .tnv-subtitle {
+    font-family: var(--serif);
+    font-size: 1.14rem;
+    font-weight: 300;
+    font-style: italic;
+    color: #6b6860;
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Toggle */
+  .section-toggle {
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+  }
+  .toggle-btn {
+    padding: 11px 31px;
+    font-family: var(--sans);
+    font-size: .68rem;
+    font-weight: 400;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 0;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+    margin: 0;
+  }
+  .toggle-btn + .toggle-btn {
+    border-left: none;
+  }
+  .toggle-btn.active {
+    background: var(--accent);
+    color: var(--offwhite);
+  }
+  .toggle-btn:not(.active):hover {
+    color: var(--accent);
+    background: rgba(10, 47, 106, .05);
+  }
+
+  /* Panels */
+  .toggle-panel { display: block; }
+  .toggle-panel[hidden] { display: none; }
+
+  /* Shared inner */
+  .tnv-inner {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* Importers section */
+  .tnv-importers {
+    background: var(--offwhite);
+    padding: 56px 48px;
+  }
+  .imp-list {
+    max-width: 700px;
+  }
+  .imp-row {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: .9rem 0;
+    border-bottom: .5px solid rgba(10, 10, 8, .08);
+  }
+  .imp-row-last {
+    border-bottom: none;
+  }
+  .imp-country {
+    font-family: var(--sans);
+    font-size: .67rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    width: 160px;
+    flex-shrink: 0;
+  }
+  .imp-name {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    color: var(--dark-gray);
+    transition: color .2s;
+    flex: 1;
+  }
+  a.imp-name:hover {
+    color: var(--accent);
+  }
+  .imp-city {
+    font-family: var(--sans);
+    font-size: .82rem;
+    color: #999490;
+    text-align: right;
+  }
+
+  /* Light section */
+  .tnv-light {
+    background: var(--offwhite);
+    padding: 56px 48px;
+  }
+  .tnv-eyebrow-light {
+    font-family: var(--sans);
+    font-size: .56rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: .8rem;
+  }
+  .tnv-h2-light {
+    font-family: var(--display);
+    font-size: clamp(1.8rem, 4vw, 2.25rem);
+    color: var(--dark-gray);
+    letter-spacing: .04em;
+    margin-bottom: 2rem;
+  }
+  .tnv-notice {
+    border-left: 2px solid var(--accent);
+    padding-left: 16px;
+    margin-bottom: 2.5rem;
+  }
+  .tnv-notice p {
+    font-family: var(--serif);
+    font-size: 1.01rem;
+    font-style: italic;
+    color: #6b6860;
+    line-height: 1.6;
+  }
+  .tnv-notice a {
+    color: var(--accent);
+    border-bottom: .5px solid var(--accent);
+    padding-bottom: 1px;
+  }
+
+  /* Dept blocks */
+  .dept-block {
+    margin-bottom: 2.5rem;
+  }
+  .dept-label {
+    font-family: var(--sans);
+    font-size: .58rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding-bottom: .5rem;
+    border-bottom: 1px solid rgba(10, 47, 106, .15);
+    margin-bottom: 0;
+  }
+  .places-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .place-item {
+    padding: .8rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: .15rem;
+  }
+  .place-odd {
+    padding-right: 24px;
+    border-right: .5px solid rgba(10, 10, 8, .08);
+  }
+  .place-even {
+    padding-left: 24px;
+  }
+  .place-item:not(:nth-last-child(-n+2)) {
+    border-bottom: .5px solid rgba(10, 10, 8, .08);
+  }
+  .place-name {
+    font-family: var(--serif);
+    font-size: .94rem;
+    color: var(--dark-gray);
+    transition: color .2s;
+  }
+  a.place-name:hover {
+    color: var(--accent);
+  }
+  .place-city {
+    font-family: var(--sans);
+    font-size: .68rem;
+    font-weight: 300;
+    color: #999490;
+  }
+
+  /* CTA band */
+  .tnv-cta {
+    background: var(--cta-bg);
+    padding: clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 5vw, 4rem);
+  }
+  .tnv-cta-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .tnv-cta-text {
+    flex: 1;
+    min-width: 260px;
+  }
+  .tnv-cta-eyebrow {
+    font-family: var(--sans);
+    font-size: .56rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: rgba(245, 242, 235, .4);
+    display: block;
+    margin-bottom: .6rem;
+  }
+  .tnv-cta-text h3 {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 3.2vw, 1.85rem);
+    font-weight: 300;
+    color: var(--cta-heading);
+    margin-bottom: .4rem;
+  }
+  .tnv-cta-text p {
+    font-family: var(--sans);
+    font-size: .86rem;
+    font-weight: 300;
+    color: var(--cta-subtitle);
+  }
+  .tnv-cta-btn {
+    font-family: var(--sans);
+    font-size: .72rem;
+    font-weight: 400;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--cta-bg);
+    background: var(--offwhite);
+    padding: .85rem 2.8rem;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    transition: all .3s;
+    flex-shrink: 0;
+  }
+  .tnv-cta-btn:hover {
+    background: transparent;
+    border-color: var(--offwhite);
+    color: var(--offwhite);
+  }
+
+  /* B2C strip */
+  .tnv-b2c {
+    background: var(--offwhite);
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    border-top: .5px solid rgba(10, 10, 8, .09);
+  }
+  .tnv-b2c p {
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-style: italic;
+    color: #6b6860;
+  }
+  .tnv-b2c a {
+    color: #6b6860;
+    border-bottom: .5px solid rgba(107, 104, 96, .4);
+    padding-bottom: 1px;
+    transition: color .2s;
+  }
+  .tnv-b2c a:hover {
+    color: var(--dark-gray);
+    border-color: var(--dark-gray);
+  }
+
+  /* Mobile */
+  @media (max-width: 580px) {
+    .tnv-dark, .tnv-light, .tnv-importers, .tnv-cta, .tnv-b2c {
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+    .tnv-hero {
+      padding-left: 32px;
+      padding-right: 32px;
+    }
+    .places-grid {
+      grid-template-columns: 1fr;
+      padding: 0 16px;
+    }
+    a.place-name {
+      color: var(--accent);
+    }
+    a.imp-name {
+      color: var(--accent);
+    }
+    .place-odd {
+      padding-right: 0;
+      border-right: none;
+    }
+    .place-even {
+      padding-left: 0;
+    }
+    .imp-row {
+      flex-wrap: wrap;
+      gap: .3rem;
+    }
+    .imp-country {
+      width: 100%;
+    }
+    .tnv-cta-inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .tnv-b2c {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: .8rem;
+    }
+  }
+</style>

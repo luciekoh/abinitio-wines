@@ -22,5 +22,5 @@ trustNames:
 trustLinkText:
   fr: "Trouver nos vins en France et au-delà →"
   en: "Find our wines in France and beyond →"
-trustLinkUrl: "/distributeurs"
+trustLinkUrl: "/trouver-nos-vins"
 ---

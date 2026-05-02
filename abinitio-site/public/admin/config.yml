@@ -139,6 +139,37 @@ collections:
       - { label: "Notes (FR)", name: "notes", widget: "markdown", required: false }
       - { label: "Notes (EN)", name: "notes_en", widget: "markdown", required: false }
 
+  - name: importeurs
+    label: "Importateurs"
+    label_singular: "Importateur"
+    folder: "src/content/importeurs"
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: yaml-frontmatter
+    fields:
+      - { label: "Pays", name: "pays", widget: "string" }
+      - { label: "Nom public", name: "nom", widget: "string" }
+      - { label: "Ville", name: "ville", widget: "string" }
+      - { label: "Site web (URL complète)", name: "url", widget: "string", required: false }
+      - { label: "Ordre d'affichage", name: "ordre", widget: "number", default: 99 }
+
+  - name: points_de_vente
+    label: "Points de vente France"
+    label_singular: "Point de vente"
+    folder: "src/content/points-de-vente"
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: yaml-frontmatter
+    fields:
+      - { label: "Région", name: "region", widget: "string" }
+      - { label: "Département", name: "dept", widget: "string" }
+      - { label: "Nom public", name: "nom", widget: "string" }
+      - { label: "Ville", name: "ville", widget: "string" }
+      - { label: "Site web ou Instagram (URL)", name: "url", widget: "string", required: false }
+      - { label: "Ordre dans la région", name: "ordre", widget: "number", default: 99 }
+
   - name: partners
     label: "Partenaires (HP)"
     files:

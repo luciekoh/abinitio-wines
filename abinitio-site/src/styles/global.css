@@ -129,3 +129,13 @@ section {
   0%, 100% { opacity: .3; transform: scaleY(.5); }
   50%      { opacity: 1; transform: scaleY(1); }
 }
+
+/* === Mobile hero padding === */
+@media (max-width: 768px) {
+  .cuvees-banner,
+  .hero-titre,
+  .opener,
+  .tnv-hero {
+    padding-top: 120px !important;
+  }
+}

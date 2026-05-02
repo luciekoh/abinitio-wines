@@ -63,4 +63,27 @@ const salons = defineCollection({
   }),
 });
 
-export const collections = { wines, events, salons };
+const importeurs = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/importeurs' }),
+  schema: z.object({
+    pays: z.string(),
+    nom: z.string(),
+    ville: z.string(),
+    url: z.string().optional(),
+    ordre: z.number().default(99),
+  }),
+});
+
+const points_de_vente = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/points-de-vente' }),
+  schema: z.object({
+    region: z.string(),
+    dept: z.string(),
+    nom: z.string(),
+    ville: z.string(),
+    url: z.string().optional(),
+    ordre: z.number().default(99),
+  }),
+});
+
+export const collections = { wines, events, salons, importeurs, points_de_vente };
