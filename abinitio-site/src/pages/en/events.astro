@@ -71,8 +71,6 @@ function rdvMailto(name: string): string {
   const subject = encodeURIComponent(`Meeting at ${name}`);
   return `mailto:contact@abinitio-wines.com?subject=${subject}`;
 }
-
-const subtitle = `Where to find us — ${new Date().getFullYear()} season`;
 ---
 
 <Base title="Events — Where to find AB Initio wines, 2026 season" description="Find AB Initio at wine fairs and events in 2026: RAW WINE Tokyo, Sous les Pavés la Vigne Paris, and more." lang={lang} frPath={frPath} enPath={enPath}>
@@ -84,7 +82,7 @@ const subtitle = `Where to find us — ${new Date().getFullYear()} season`;
 
   <section class="opener">
     <h1>{t.eventsPage.eyebrow}</h1>
-    <p class="subtitle">{subtitle}</p>
+    <p class="subtitle">{t.eventsPage.subtitle}</p>
   </section>
 
   {featured && (
@@ -154,7 +152,8 @@ const subtitle = `Where to find us — ${new Date().getFullYear()} season`;
   <section class="salons-cta">
     <div class="salons-cta-inner">
       <div>
-        <h3>{t.eventsPage.noticeText}</h3>
+        <h3>{t.eventsPage.noticeHeading}</h3>
+        <p>{t.eventsPage.noticeSub}</p>
       </div>
       <a href="mailto:contact@abinitio-wines.com" class="btn-pro">{t.eventsPage.noticeCta}</a>
     </div>

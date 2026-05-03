@@ -4,14 +4,15 @@ import Base from '../../../layouts/Base.astro';
 import Nav from '../../../components/Nav.astro';
 import Footer from '../../../components/Footer.astro';
 import SeoBreadcrumbs from '../../../components/SeoBreadcrumbs.astro';
-import partnersData from '../../../content/partners/list.json';
 import enT from '../../../i18n/en.json';
+import { getTrustPartners } from '../../../lib/trust-partners';
 
-const partners = partnersData.items;
 const t = enT;
 const lang = 'en';
 const frPath = '/cuvees/';
 const enPath = '/en/wines/';
+
+const partners = await getTrustPartners();
 
 const wines = await getCollection('wines');
 const philosophie = wines.filter((w) => w.data.category === 'philosophie');
@@ -373,7 +374,7 @@ function getLabel(slug: string) {
     background: var(--offwhite);
     padding: .85rem 2.8rem;
     border: 1px solid transparent;
-    border-radius: 2px;
+    border-radius: 0;
     transition: all .3s;
   }
   .cuvees-cta-btn:hover {

@@ -1,7 +1,7 @@
 ---
-import partnersData from '../content/partners/list.json';
 import enT from '../i18n/en.json';
 import frT from '../i18n/fr.json';
+import { getTrustPartners } from '../lib/trust-partners';
 
 interface Props {
   lang?: 'fr' | 'en';
@@ -9,7 +9,7 @@ interface Props {
 
 const { lang = 'fr' } = Astro.props;
 const t = lang === 'en' ? enT : frT;
-const partners = partnersData.items;
+const partners = await getTrustPartners();
 const findHref = lang === 'en' ? '/en/find-our-wines' : '/trouver-nos-vins';
 ---
 
@@ -61,7 +61,7 @@ const findHref = lang === 'en' ? '/en/find-our-wines' : '/trouver-nos-vins';
 
   .pro-heading {
     font-family: var(--serif);
-    font-size: clamp(2rem, 4vw, 3rem);
+    font-size: clamp(1.7rem, 3.4vw, 2.55rem);
     font-weight: 300;
     color: var(--cta-heading);
     margin-bottom: .5rem;
@@ -87,7 +87,7 @@ const findHref = lang === 'en' ? '/en/find-our-wines' : '/trouver-nos-vins';
     background: var(--offwhite);
     padding: .85rem 2.8rem;
     border: 1px solid transparent;
-    border-radius: 2px;
+    border-radius: 0;
     transition: all .3s;
   }
 
