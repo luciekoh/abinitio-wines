@@ -1,24 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+import enT from '../i18n/en.json';
+import frT from '../i18n/fr.json';
+
+interface Props {
+  lang?: 'fr' | 'en';
+}
+
+const { lang = 'fr' } = Astro.props;
+const t = lang === 'en' ? enT : frT;
+const eventsHref = lang === 'en' ? '/en/events' : '/salons';
+
+const monthsFR = ['jan', 'fév', 'mars', 'avr', 'mai', 'juin', 'juil', 'août', 'sept', 'oct', 'nov', 'déc'];
+const monthsEN = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+const months = lang === 'en' ? monthsEN : monthsFR;
+
+const allSalons = await getCollection('salons');
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+const upcoming = allSalons
+  .filter(e => new Date(e.data.end_date) >= today)
+  .sort((a, b) => new Date(a.data.start_date).getTime() - new Date(b.data.start_date).getTime())
+  .slice(0, 3);
+
+function formatRange(startDate: Date, endDate: Date): string {
+  const s = new Date(startDate), e = new Date(endDate);
+  const sameDay = s.toDateString() === e.toDateString();
+  const sameMonth = s.getMonth() === e.getMonth() && s.getFullYear() === e.getFullYear();
+  if (sameDay) return `${s.getDate()} ${months[s.getMonth()]}`.toUpperCase();
+  if (sameMonth) return `${s.getDate()}–${e.getDate()} ${months[s.getMonth()]}`.toUpperCase();
+  return `${s.getDate()} ${months[s.getMonth()]} – ${e.getDate()} ${months[e.getMonth()]}`.toUpperCase();
+}
+
+const countryMap: Record<string, string> = (t as any).countries || {};
+function localizeCountry(c: string): string {
+  return countryMap[c] || c;
+}
+
+function eventName(salon: any): string {
+  if (lang === 'en' && salon.data.name_en) return salon.data.name_en;
+  return salon.data.name;
+}
+---
+
 <div class="events-strip" id="events">
   <div class="events-inner">
-    <span class="section-label events-label">Salons à venir</span>
+    <span class="section-label events-label">{t.homepage.eventsHeading}</span>
     <div class="events-list stagger">
-      <div class="event-item">
-        <span class="event-date">10–11 MAI</span>
-        <span class="event-name">RAW WINE</span>
-        <span class="event-location">Tokyo, Japon</span>
-      </div>
-      <div class="event-item">
-        <span class="event-date">23 MAI</span>
-        <span class="event-name">Salon des Vins, Cave de la Ria</span>
-        <span class="event-location">Pornic, France</span>
-      </div>
-      <div class="event-item">
-        <span class="event-date">6–8 JUIN</span>
-        <span class="event-name">Sous les Pavés la Vigne</span>
-        <span class="event-location">Paris, France</span>
-      </div>
+      {upcoming.map((salon) => (
+        <div class="event-item">
+          <span class="event-date">{formatRange(salon.data.start_date, salon.data.end_date)}</span>
+          <span class="event-name">{eventName(salon)}</span>
+          <span class="event-location">{salon.data.city}, {localizeCountry(salon.data.country)}</span>
+        </div>
+      ))}
     </div>
-    <a href="/salons" class="section-cta" style="margin-top:2.5rem;display:inline-block;color:var(--accent)">Tous les événements →</a>
+    <a href={eventsHref} class="section-cta" style="margin-top:2.5rem;display:inline-block;color:var(--accent)">{t.homepage.eventsCta}</a>
   </div>
 </div>
 

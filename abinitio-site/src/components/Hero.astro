@@ -1,18 +1,33 @@
 ---
 import heroPhoto from '../assets/images/photos/emmanuel-roblin-vineyard.jpg';
 import logoImg from '../assets/images/logo/logo-ab-initio-clean.png';
+import enT from '../i18n/en.json';
+import frT from '../i18n/fr.json';
+
+interface Props {
+  lang?: 'fr' | 'en';
+}
+
+const { lang = 'fr' } = Astro.props;
+const t = lang === 'en' ? enT : frT;
+
+const srHeading = lang === 'en'
+  ? 'AB Initio — Organic wines aged in amphora, Muscadet Nantais, Loire Valley'
+  : 'Ab Initio — Vins biologiques élevés en amphore, Muscadet nantais, Loire Valley';
+const logoAlt = lang === 'en' ? 'AB Initio — Organic wines, Loire' : 'Ab Initio — Vins biologiques, Loire';
+const scrollAria = lang === 'en' ? 'Discover — scroll to content' : 'Découvrir — défiler vers le contenu';
 ---
 
 <section class="hero">
   <div class="hero-image" style={`background-image: url('${heroPhoto.src}')`}></div>
   <div class="hero-content">
-    <h1 class="sr-only">Ab Initio — Vins biologiques élevés en amphore, Muscadet nantais, Loire Valley</h1>
-    <img class="hero-logo-img" src={logoImg.src} alt="Ab Initio — Vins biologiques, Loire" />
-    <div class="hero-motto">Nihil fit sine causa</div>
-    <div class="hero-subtitle">Vins biologiques · Loire · France</div>
+    <h1 class="sr-only">{srHeading}</h1>
+    <img class="hero-logo-img" src={logoImg.src} alt={logoAlt} />
+    <div class="hero-motto">{t.homepage.heroEyebrow}</div>
+    <div class="hero-subtitle">{t.homepage.heroTagline}</div>
   </div>
-  <a href="#intro" class="hero-scroll" aria-label="Découvrir — défiler vers le contenu">
-    <span>Découvrir</span>
+  <a href="#intro" class="hero-scroll" aria-label={scrollAria}>
+    <span>{t.homepage.heroCta}</span>
     <svg class="hero-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
       <polyline points="6 9 12 15 18 9"></polyline>
     </svg>

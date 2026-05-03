@@ -2,26 +2,65 @@
 import logoImg from '../assets/images/logo/logo-ab-initio-clean.png';
 import euCertImg from '../assets/images/certs/eu-organic-leaf.png';
 import abCertImg from '../assets/images/certs/ab-cert-bw.png';
+import enT from '../i18n/en.json';
+import frT from '../i18n/fr.json';
+
+interface Props {
+  lang?: 'fr' | 'en';
+  frPath?: string;
+  enPath?: string;
+}
+
+const {
+  lang = 'fr',
+  frPath = '/',
+  enPath = '/en/',
+} = Astro.props;
+
+const t = lang === 'en' ? enT : frT;
+const otherLangPath = lang === 'en' ? frPath : enPath;
+
+const navItems = lang === 'en'
+  ? [
+      { href: '/en/wines/', label: t.nav.wines },
+      { href: '/en/our-story/', label: t.nav.story },
+      { href: '/en/events/', label: t.nav.events },
+      { href: '/en/find-our-wines/', label: t.nav.find },
+    ]
+  : [
+      { href: '/cuvees', label: t.nav.wines },
+      { href: '/histoire', label: t.nav.story },
+      { href: '/salons', label: t.nav.events },
+      { href: '/trouver-nos-vins', label: t.nav.find },
+    ];
+
+const legalHref = lang === 'en' ? '/en/legal-notice' : '/mentions-legales';
+const privacyHref = lang === 'en' ? '/en/privacy-policy' : '/politique-de-confidentialite';
+
+const contactLabel = lang === 'en' ? 'Contact' : 'Contact';
+const logoAlt = lang === 'en' ? 'AB Initio — Organic wines, Loire' : 'Ab Initio — Vins biologiques, Loire';
+const abCertAlt = lang === 'en' ? 'France Organic Agriculture label' : 'Label Agriculture Biologique France';
+const euCertAlt = lang === 'en' ? 'European Organic Agriculture label' : 'Label Agriculture Biologique européen';
 ---
 
 <footer>
   <div class="footer-inner">
     <!-- Left column: Brand -->
     <div class="footer-brand">
-      <img class="footer-logo-img" src={logoImg.src} alt="Ab Initio — Vins biologiques, Loire" />
+      <img class="footer-logo-img" src={logoImg.src} alt={logoAlt} />
       <p class="footer-motto">Nihil fit sine causa.</p>
       <div class="footer-cert-block">
-        <span class="footer-cert-text">Agriculture Biologique FR-BIO-01 · Certifié ECOCERT</span>
+        <span class="footer-cert-text">{t.footer.certification}</span>
         <div class="footer-certs">
-          <img class="footer-cert-img footer-cert-ab" src={abCertImg.src} alt="Label Agriculture Biologique France" />
-          <img class="footer-cert-img footer-cert-eu" src={euCertImg.src} alt="Label Agriculture Biologique européen" />
+          <img class="footer-cert-img footer-cert-ab" src={abCertImg.src} alt={abCertAlt} />
+          <img class="footer-cert-img footer-cert-eu" src={euCertImg.src} alt={euCertAlt} />
         </div>
       </div>
     </div>
 
     <!-- Center column: Contact -->
     <div class="footer-col footer-contact">
-      <h4>Contact</h4>
+      <h4>{contactLabel}</h4>
       <p>Clos de l'Écu<br />44430 Le Landreau<br />France</p>
       <a href="mailto:contact@abinitio-wines.com">contact@abinitio-wines.com</a>
       <a href="tel:+33240064091">+33 (0)2 40 06 40 91</a>
@@ -29,25 +68,24 @@ import abCertImg from '../assets/images/certs/ab-cert-bw.png';
 
     <!-- Right column: Navigation -->
     <div class="footer-col footer-nav">
-      <h4>Navigation</h4>
-      <a href="/cuvees">Cuvées</a>
-      <a href="/histoire">Histoire</a>
-      <a href="/salons">Salons</a>
-      <a href="/trouver-nos-vins">Trouver nos vins</a>
+      <h4>{t.footer.navHeading}</h4>
+      {navItems.map(item => (
+        <a href={item.href}>{item.label}</a>
+      ))}
       <div class="footer-lang">
-        <a href="#" class="lang-active">FR</a>
+        <span class="lang-active">{t.nav.lang_self}</span>
         <span class="lang-sep">/</span>
-        <a href="#">EN</a>
+        <a href={otherLangPath}>{t.nav.lang_other}</a>
       </div>
     </div>
   </div>
 
   <div class="footer-instagram-row">
-    <a href="https://www.instagram.com/abinitio_wine/" class="footer-instagram" target="_blank" rel="noopener">Suivez-nous sur Instagram</a>
+    <a href="https://www.instagram.com/abinitio_wine/" class="footer-instagram" target="_blank" rel="noopener">{t.footer.instagram}</a>
   </div>
 
   <div class="footer-bottom">
-    <span class="footer-bottom-left">L'abus d'alcool est dangereux pour la santé. À consommer avec modération. · © 2026 SAS AB INITIO · <a href="/mentions-legales">Mentions légales</a> · <a href="/politique-de-confidentialite">Politique de confidentialité</a></span>
+    <span class="footer-bottom-left">{t.footer.alcohol} · {t.footer.copyright} · <a href={legalHref}>{t.footer.legal}</a> · <a href={privacyHref}>{t.footer.privacy}</a></span>
   </div>
 </footer>
 
@@ -187,6 +225,7 @@ import abCertImg from '../assets/images/certs/ab-cert-bw.png';
     gap: .3rem;
   }
 
+  .footer-lang span,
   .footer-lang a {
     display: inline;
     font-family: var(--sans);
@@ -200,7 +239,7 @@ import abCertImg from '../assets/images/certs/ab-cert-bw.png';
     transition: opacity .3s;
   }
 
-  .footer-lang a.lang-active {
+  .footer-lang .lang-active {
     opacity: 1;
   }
 
@@ -212,7 +251,7 @@ import abCertImg from '../assets/images/certs/ab-cert-bw.png';
   .lang-sep {
     font-family: var(--sans);
     font-size: .65rem;
-    color: rgba(245, 242, 235, .2);
+    color: rgba(245, 242, 235, .2) !important;
   }
 
   /* Bottom strip */

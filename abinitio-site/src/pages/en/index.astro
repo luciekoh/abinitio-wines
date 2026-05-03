@@ -1,0 +1,34 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Hero from '../../components/Hero.astro';
+import Intro from '../../components/Intro.astro';
+import WineGrid from '../../components/WineGrid.astro';
+import ProCTA from '../../components/ProCTA.astro';
+import PhotoBreak from '../../components/PhotoBreak.astro';
+import StoryPreview from '../../components/StoryPreview.astro';
+import EventStrip from '../../components/EventStrip.astro';
+import Footer from '../../components/Footer.astro';
+
+const lang = 'en';
+const frPath = '/';
+const enPath = '/en/';
+---
+
+<Base
+  lang={lang}
+  frPath={frPath}
+  enPath={enPath}
+  title="AB Initio — Organic wines from the Loire Valley, Muscadet"
+  description="AB Initio: artisanal organic wines from the Muscadet Nantais. Folle Blanche, Melon de Bourgogne, Chardonnay and Gamay vinified in amphoras and concrete by Emmanuel Roblin."
+>
+  <Nav isHomepage={true} lang={lang} frPath={frPath} enPath={enPath} />
+  <Hero lang={lang} />
+  <Intro lang={lang} />
+  <WineGrid lang={lang} />
+  <ProCTA lang={lang} />
+  <PhotoBreak lang={lang} />
+  <StoryPreview lang={lang} />
+  <EventStrip lang={lang} />
+  <Footer lang={lang} frPath={frPath} enPath={enPath} />
+</Base>

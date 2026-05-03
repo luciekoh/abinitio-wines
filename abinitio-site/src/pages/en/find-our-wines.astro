@@ -1,14 +1,19 @@
 ---
-import Base from '../layouts/Base.astro';
-import Nav from '../components/Nav.astro';
-import Footer from '../components/Footer.astro';
-import SeoBreadcrumbs from '../components/SeoBreadcrumbs.astro';
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import SeoBreadcrumbs from '../../components/SeoBreadcrumbs.astro';
 import { getCollection } from 'astro:content';
+import enT from '../../i18n/en.json';
+
+const t = enT;
+const lang = 'en';
+const frPath = '/trouver-nos-vins/';
+const enPath = '/en/find-our-wines/';
 
 const importeurs = (await getCollection('importeurs')).sort((a, b) => a.data.ordre - b.data.ordre);
 const pdv = (await getCollection('points_de_vente')).sort((a, b) => a.data.ordre - b.data.ordre);
 
-// Group points de vente by region
 const regionOrder = ['Loire-Atlantique', 'Centre-Val de Loire', 'Paris · Île-de-France'];
 const pdvByRegion = pdv.reduce<Record<string, typeof pdv>>((acc, p) => {
   const key = p.data.region;
@@ -18,11 +23,16 @@ const pdvByRegion = pdv.reduce<Record<string, typeof pdv>>((acc, p) => {
 }, {});
 const regions = regionOrder.filter(r => pdvByRegion[r]);
 
+const countryMap: Record<string, string> = t.countries;
+function localizeCountry(c: string): string {
+  return countryMap[c] || c;
+}
+
 const schemaData = {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  "name": "Points de vente et importateurs Ab Initio",
-  "description": "Sélection de cavistes, restaurants et importateurs distribuant les vins Ab Initio en France et en Europe",
+  "name": "AB Initio stockists and importers",
+  "description": "Selection of wine shops, restaurants and importers carrying AB Initio wines in France and Europe",
   "itemListElement": [
     ...importeurs.map((imp, i) => ({
       "@type": "ListItem", "position": i + 1,
@@ -37,28 +47,28 @@ const schemaData = {
 ---
 
 <Base
-  title="Trouver nos vins Ab Initio — vins naturels Loire, cavistes et restaurants · France et Europe"
-  description="Retrouvez les vins naturels Ab Initio chez nos partenaires cavistes, bars à vin et restaurants dans le Muscadet et toute la France, ainsi qu'auprès de nos importateurs en Allemagne, Pays-Bas, République Tchèque et Irlande."
-  lang="fr"
-  frPath="/trouver-nos-vins/"
-  enPath="/en/find-our-wines/"
+  title="Find our wines — AB Initio stockists, France and Europe"
+  description="Find AB Initio organic wines at selected wine shops, restaurants and wine bars in France, and through our importers in Germany, Ireland, Netherlands and Czech Republic."
+  lang={lang}
+  frPath={frPath}
+  enPath={enPath}
 >
-  <Nav lang="fr" frPath="/trouver-nos-vins/" enPath="/en/find-our-wines/" />
+  <Nav lang={lang} frPath={frPath} enPath={enPath} />
   <SeoBreadcrumbs items={[
-    { name: 'Accueil', url: '/' },
-    { name: 'Trouver nos vins', url: '/trouver-nos-vins' },
+    { name: 'Home', url: '/en/' },
+    { name: 'Find our wines', url: '/en/find-our-wines' },
   ]} />
 
   <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
 
   <!-- Hero -->
   <div class="tnv-hero">
-    <span class="tnv-eyebrow">Réseau</span>
-    <h1>Trouver nos vins</h1>
-    <p class="tnv-subtitle">Retrouvez nos vins chez une sélection de cavistes, bars à vin et restaurants engagés dans le Muscadet et toute la France, et chez nos distributeurs au-delà.</p>
+    <span class="tnv-eyebrow">{t.findPage.eyebrow}</span>
+    <h1>{t.findPage.title}</h1>
+    <p class="tnv-subtitle">{t.findPage.subtitle}</p>
     <div class="section-toggle">
-      <button class="toggle-btn active" data-panel="france">En France</button>
-      <button class="toggle-btn" data-panel="etranger">À l'étranger</button>
+      <button class="toggle-btn active" data-panel="france">{t.findPage.toggleFrance}</button>
+      <button class="toggle-btn" data-panel="etranger">{t.findPage.toggleAbroad}</button>
     </div>
   </div>
 
@@ -66,10 +76,10 @@ const schemaData = {
   <div id="panel-france" class="toggle-panel">
     <section class="tnv-light">
       <div class="tnv-inner">
-        <span class="tnv-eyebrow-light">En France</span>
-        <h2 class="tnv-h2-light">Caves, restaurants et bars à vin</h2>
+        <span class="tnv-eyebrow-light">{t.findPage.franceSectionEyebrow}</span>
+        <h2 class="tnv-h2-light">{t.findPage.franceSectionTitle}</h2>
         <div class="tnv-notice">
-          <p>Une sélection de nos partenaires. <a href="mailto:contact@abinitio-wines.com">Écrivez-nous</a> si vous ne trouvez pas une adresse près de chez vous.</p>
+          <p>{t.findPage.franceNotice} <a href="mailto:contact@abinitio-wines.com">{t.findPage.franceNoticeLink}</a> {t.findPage.franceNoticeSuffix}</p>
         </div>
 
         {regions.map(region => {
@@ -102,12 +112,12 @@ const schemaData = {
   <div id="panel-etranger" class="toggle-panel" hidden>
     <section class="tnv-importers">
       <div class="tnv-inner">
-        <span class="tnv-eyebrow-light">À l'étranger</span>
-        <h2 class="tnv-h2-light">Nos importateurs</h2>
+        <span class="tnv-eyebrow-light">{t.findPage.abroadSectionEyebrow}</span>
+        <h2 class="tnv-h2-light">{t.findPage.abroadSectionTitle}</h2>
         <div class="imp-list">
           {importeurs.map((imp, i) => (
             <div class:list={['imp-row', { 'imp-row-last': i === importeurs.length - 1 }]}>
-              <span class="imp-country">{imp.data.pays}</span>
+              <span class="imp-country">{localizeCountry(imp.data.pays)}</span>
               {imp.data.url ? (
                 <a href={imp.data.url} target="_blank" rel="noopener noreferrer" class="imp-name">{imp.data.nom}</a>
               ) : (
@@ -125,33 +135,22 @@ const schemaData = {
   <div class="tnv-cta">
     <div class="tnv-cta-inner">
       <div class="tnv-cta-text">
-        <span class="tnv-cta-eyebrow" id="cta-eyebrow">Professionnels du vin</span>
-        <h3 id="cta-headline">Vous souhaitez référencer nos vins ?</h3>
-        <p id="cta-sub">Tarifs, animations, accords mets-vins — on vous écoute.</p>
+        <span class="tnv-cta-eyebrow" id="cta-eyebrow">{t.findPage.franceCtaEyebrow}</span>
+        <h3 id="cta-headline">{t.findPage.franceCtaHeading}</h3>
+        <p id="cta-sub">{t.findPage.franceCtaSub}</p>
       </div>
-      <a href="mailto:contact@abinitio-wines.com" class="tnv-cta-btn">Nous contacter</a>
+      <a href="mailto:contact@abinitio-wines.com" class="tnv-cta-btn">{t.findPage.franceCtaButton}</a>
     </div>
   </div>
 
   <!-- B2C strip -->
   <div class="tnv-b2c">
-    <p>Pas de point de vente près de chez vous ? <a href="mailto:contact@abinitio-wines.com">Écrivez-nous.</a></p>
+    <p>{t.findPage.bottomNotice} <a href="mailto:contact@abinitio-wines.com">{t.findPage.bottomNoticeLink}</a></p>
   </div>
 
-  <Footer lang="fr" frPath="/trouver-nos-vins/" enPath="/en/find-our-wines/" />
+  <Footer lang={lang} frPath={frPath} enPath={enPath} />
 
-  <script>
-    const ctaFrance = {
-      eyebrow: 'Professionnels du vin',
-      headline: 'Vous souhaitez référencer nos vins ?',
-      sub: 'Tarifs, animations, accords mets-vins — on vous écoute.'
-    };
-    const ctaExport = {
-      eyebrow: 'Export & distribution',
-      headline: 'Vous souhaitez distribuer nos vins à l\'export ?',
-      sub: 'Tarifs, modalités, territoires disponibles — parlons-en.'
-    };
-
+  <script define:vars={{ ctaFranceData: { eyebrow: t.findPage.franceCtaEyebrow, headline: t.findPage.franceCtaHeading, sub: t.findPage.franceCtaSub }, ctaAbroadData: { eyebrow: t.findPage.abroadCtaEyebrow, headline: t.findPage.abroadCtaHeading, sub: t.findPage.abroadCtaSub } }}>
     document.querySelectorAll('.toggle-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
@@ -159,7 +158,7 @@ const schemaData = {
         btn.classList.add('active');
         document.getElementById('panel-' + btn.dataset.panel).hidden = false;
 
-        const cta = btn.dataset.panel === 'france' ? ctaFrance : ctaExport;
+        const cta = btn.dataset.panel === 'france' ? ctaFranceData : ctaAbroadData;
         document.getElementById('cta-eyebrow').textContent = cta.eyebrow;
         document.getElementById('cta-headline').textContent = cta.headline;
         document.getElementById('cta-sub').textContent = cta.sub;

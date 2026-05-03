@@ -1,5 +1,7 @@
 ---
 import WineCard from './WineCard.astro';
+import enT from '../i18n/en.json';
+import frT from '../i18n/fr.json';
 
 import philiaImg from '../assets/images/labels/philia.jpg';
 import eidosImg from '../assets/images/labels/eidos.jpeg';
@@ -10,48 +12,59 @@ import prestoImg from '../assets/images/labels/presto.jpg';
 import ekkoImg from '../assets/images/labels/ekko.jpg';
 import illicoImg from '../assets/images/labels/illico.jpg';
 
+interface Props {
+  lang?: 'fr' | 'en';
+}
+
+const { lang = 'fr' } = Astro.props;
+const t = lang === 'en' ? enT : frT;
+const wineBase = lang === 'en' ? '/en/wines' : '/cuvees';
+const colorWhite = lang === 'en' ? 'White' : 'Blanc';
+const colorRed = lang === 'en' ? 'Red' : 'Rouge';
+const labelPrefix = lang === 'en' ? 'Label' : 'Étiquette';
+
 const philosophie = [
-  { name: 'PHILIA', vintage: '2021', color: 'Blanc', grapes: 'Folle Blanche', imageSrc: philiaImg.src, altText: 'Étiquette Philia 2021 — Folle Blanche', href: '/cuvees/philia' },
-  { name: 'EÏDOS', vintage: '2022', color: 'Blanc', grapes: 'Melon B. · Chardonnay · Folle B.', imageSrc: eidosImg.src, altText: 'Étiquette Eïdos 2022 — Melon B., Chardonnay, Folle B.', href: '/cuvees/eidos' },
-  { name: 'LOGOS', vintage: '2023', color: 'Blanc', grapes: 'Chardonnay', imageSrc: logosImg.src, altText: 'Étiquette Logos 2023 — Chardonnay', href: '/cuvees/logos' },
-  { name: 'KEDRON', vintage: '2020', color: 'Rouge', grapes: 'Grenache · Syrah', imageSrc: kedronImg.src, altText: 'Étiquette Kedron 2020 — Grenache, Syrah', href: '/cuvees/kedron' },
-  { name: 'KAÏROS', vintage: '2021', color: 'Rouge', grapes: 'Gamay', imageSrc: kairosImg.src, altText: 'Étiquette Kaïros 2021 — Gamay', href: '/cuvees/kairos' },
+  { name: 'PHILIA', vintage: '2021', color: colorWhite, grapes: 'Folle Blanche', imageSrc: philiaImg.src, altText: `${labelPrefix} Philia 2021 — Folle Blanche`, href: `${wineBase}/philia` },
+  { name: 'EÏDOS', vintage: '2022', color: colorWhite, grapes: 'Melon B. · Chardonnay · Folle B.', imageSrc: eidosImg.src, altText: `${labelPrefix} Eïdos 2022 — Melon B., Chardonnay, Folle B.`, href: `${wineBase}/eidos` },
+  { name: 'LOGOS', vintage: '2023', color: colorWhite, grapes: 'Chardonnay', imageSrc: logosImg.src, altText: `${labelPrefix} Logos 2023 — Chardonnay`, href: `${wineBase}/logos` },
+  { name: 'KEDRON', vintage: '2020', color: colorRed, grapes: 'Grenache · Syrah', imageSrc: kedronImg.src, altText: `${labelPrefix} Kedron 2020 — Grenache, Syrah`, href: `${wineBase}/kedron` },
+  { name: 'KAÏROS', vintage: '2021', color: colorRed, grapes: 'Gamay', imageSrc: kairosImg.src, altText: `${labelPrefix} Kaïros 2021 — Gamay`, href: `${wineBase}/kairos` },
 ];
 
 const copains = [
-  { name: 'PRESTO', vintage: '2023', color: 'Blanc', grapes: 'Folle B. · Chardonnay · Melon B.', imageSrc: prestoImg.src, altText: 'Étiquette Presto 2023 — Folle B., Chardonnay, Melon B.', href: '/cuvees/presto' },
-  { name: 'EKKO', vintage: '2023', color: 'Blanc', grapes: 'Melon de Bourgogne', imageSrc: ekkoImg.src, altText: 'Étiquette Ekko 2023 — Melon de Bourgogne', href: '/cuvees/ekko' },
-  { name: 'ILLICO', vintage: '2021', color: 'Rouge', grapes: 'Grenache · Syrah', imageSrc: illicoImg.src, altText: 'Étiquette Illico 2021 — Grenache, Syrah', href: '/cuvees/illico' },
+  { name: 'PRESTO', vintage: '2023', color: colorWhite, grapes: 'Folle B. · Chardonnay · Melon B.', imageSrc: prestoImg.src, altText: `${labelPrefix} Presto 2023 — Folle B., Chardonnay, Melon B.`, href: `${wineBase}/presto` },
+  { name: 'EKKO', vintage: '2023', color: colorWhite, grapes: 'Melon de Bourgogne', imageSrc: ekkoImg.src, altText: `${labelPrefix} Ekko 2023 — Melon de Bourgogne`, href: `${wineBase}/ekko` },
+  { name: 'ILLICO', vintage: '2021', color: colorRed, grapes: 'Grenache · Syrah', imageSrc: illicoImg.src, altText: `${labelPrefix} Illico 2021 — Grenache, Syrah`, href: `${wineBase}/illico` },
 ];
 ---
 
 <section class="wines-section" id="wines">
   <div class="wines-inner">
     <div class="wines-header fade-in">
-      <span class="section-label wines-label">La Collection</span>
-      <h2 class="wines-title">Chaque cuvée porte un nom<br />qui est une intention.</h2>
+      <span class="section-label wines-label">{t.homepage.collectionHeading}</span>
+      <h2 class="wines-title" set:html={lang === 'en' ? 'Every name<br />is an intention.' : 'Chaque cuvée porte un nom<br />qui est une intention.'} />
     </div>
 
     <div class="wine-category">
       <div class="wine-category-header fade-in">
-        <span class="wine-category-name">VINS DE LA PHILOSOPHIE</span>
-        <span class="wine-category-desc">Élevés en amphore, nés de la patience</span>
+        <span class="wine-category-name">{t.homepage.philosophyLabel}</span>
+        <span class="wine-category-desc">{t.homepage.philosophySub}</span>
       </div>
       <div class="wine-row stagger">
         {philosophie.map((wine) => (
-          <WineCard {...wine} />
+          <WineCard {...wine} ctaLabel={t.homepage.wineCta} />
         ))}
       </div>
     </div>
 
     <div class="wine-category wine-category-last">
       <div class="wine-category-header fade-in">
-        <span class="wine-category-name">VINS DES COPAINS</span>
-        <span class="wine-category-desc">L'élan, le partage, la joie immédiate</span>
+        <span class="wine-category-name">{t.homepage.friendsLabel}</span>
+        <span class="wine-category-desc">{t.homepage.friendsSub}</span>
       </div>
       <div class="wine-row stagger">
         {copains.map((wine) => (
-          <WineCard {...wine} />
+          <WineCard {...wine} ctaLabel={t.homepage.wineCta} />
         ))}
       </div>
     </div>

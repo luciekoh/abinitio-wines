@@ -1,11 +1,14 @@
 ---
 import { getCollection } from 'astro:content';
-import Base from '../../layouts/Base.astro';
-import Nav from '../../components/Nav.astro';
-import Footer from '../../components/Footer.astro';
-import SeoBreadcrumbs from '../../components/SeoBreadcrumbs.astro';
+import Base from '../../../layouts/Base.astro';
+import Nav from '../../../components/Nav.astro';
+import Footer from '../../../components/Footer.astro';
+import SeoBreadcrumbs from '../../../components/SeoBreadcrumbs.astro';
+import enT from '../../../i18n/en.json';
 
-// Wine order for prev/next navigation
+const t = enT;
+const lang = 'en';
+
 const wineOrder = ['philia', 'eidos', 'logos', 'kedron', 'kairos', 'presto', 'ekko', 'illico'];
 
 const wineDisplayNames: Record<string, string> = {
@@ -24,104 +27,101 @@ export async function getStaticPaths() {
 const { slug } = Astro.params;
 const { wine } = Astro.props;
 
-// Prev/next
+const frPath = `/cuvees/${slug}/`;
+const enPath = `/en/wines/${slug}/`;
+
 const currentIdx = wineOrder.indexOf(slug!);
 const prevSlug = wineOrder[(currentIdx - 1 + wineOrder.length) % wineOrder.length];
 const nextSlug = wineOrder[(currentIdx + 1) % wineOrder.length];
 const prevName = wineDisplayNames[prevSlug];
 const nextName = wineDisplayNames[nextSlug];
 
-// Import images dynamically
 const bottleImages = import.meta.glob('/src/assets/images/bottles/*.{jpg,jpeg,png}', { eager: true });
 const labelImages = import.meta.glob('/src/assets/images/labels/*.{jpg,jpeg,png}', { eager: true });
-
 const bottleKey = `/src/assets/images/bottles/${slug}.jpg`;
 const bottleImg = (bottleImages[bottleKey] as any)?.default;
-// Label fallback — try .jpg then .jpeg
 const labelImg = (labelImages[`/src/assets/images/labels/${slug}.jpg`] as any)?.default
   || (labelImages[`/src/assets/images/labels/${slug}.jpeg`] as any)?.default;
 const heroImg = bottleImg || labelImg;
 
 const categoryLabel = wine.category === 'philosophie'
-  ? 'VINS DE LA PHILOSOPHIE'
-  : 'VINS DES COPAINS';
-const colorLabel = wine.color === 'blanc' ? 'BLANC' : 'ROUGE';
+  ? t.wineDetail.categoryPhilosophy
+  : t.wineDetail.categoryFriends;
+const colorLabel = wine.color === 'blanc' ? t.wineDetail.colourWhite : t.wineDetail.colourRed;
 
-// Extract élevage info from vinification text
-const vinifFr = wine.vinification.fr;
-const elevageMatch = vinifFr.match(/Élevage en (.+?)\./);
+// Extract ageing info from EN vinification text
+const vinifEn = wine.vinification.en;
+const elevageMatch = vinifEn.match(/Aged in (.+?)\./);
 const elevage = elevageMatch ? elevageMatch[1] : '';
 
 // Certification display
 const certDisplay = wine.certification.toLowerCase().includes('biodynami')
-  ? 'Biologique et biodynamique · Certifié ECOCERT'
-  : 'Biologique · Certifié ECOCERT';
+  ? t.wineDetail.certBiodynamic
+  : t.wineDetail.certOrganic;
 
 // Vinification summary as dot-separated line
-const vinifParts = [
-  'Vendanges manuelles',
-  ...vinifFr.split('. ').filter(s => s && !s.startsWith('Les raisins') && !s.startsWith('Raisins égrappés')).map(s => s.replace(/\.$/, ''))
-];
-// Build from source fields
-const vinifSummary = vinifFr
+const vinifSummary = vinifEn
   .replace(/\.$/, '')
   .split('. ')
   .filter(Boolean)
   .join(' · ');
 
 // SEO
-const pageTitle = `${wine.name} ${wine.vintage} — ${wine.grapes.split(',')[0].trim()} · Ab Initio`;
-const pageDesc = `${wine.slogan.fr}. ${wine.about.fr.substring(0, 150)}...`;
+const pageTitle = `${wine.name} ${wine.vintage} — ${wine.grapes.split(',')[0].trim()} · AB Initio`;
+const tastingFirstSentence = wine.degustation.en.split(/(?<=[.!?])\s+/)[0] || wine.slogan.en;
+const pageDesc = tastingFirstSentence.length > 160
+  ? tastingFirstSentence.substring(0, 157) + '…'
+  : tastingFirstSentence;
 
-// Parse accords — separate pairings from serving temp
-const tableText = wine.table.fr;
+// Parse pairings from EN table — separate from serving line
+const tableText = wine.table.en;
 const pairings = tableText
   .split(/\.\s+/)
   .map((s: string) => s.replace(/\.$/, '').trim())
-  .filter((s: string) => s && !s.startsWith('Servir'));
+  .filter((s: string) => s && !s.toLowerCase().startsWith('serve'));
 
-// Terroir short
+// Terroir kept in original (FR) — universally understood wine term
 const terroirShort = wine.terroir.split(' / ').pop() || wine.terroir;
 
-// Tech sheets
+// Tech sheets — Logos has both 9m and 18m, others one
 const wineName = wine.name.charAt(0) + wine.name.slice(1).toLowerCase();
 const techSheets = [
-  { label: `Fiche technique ${wineName} ${wine.vintage}`, url: `/techsheets/${slug}-${wine.vintage}-fr.pdf` },
-  ...(slug === 'logos' ? [{ label: `Fiche technique ${wineName} ${wine.vintage} (18 mois)`, url: `/techsheets/logos-2023-18m-fr.pdf` }] : []),
+  { label: `${t.wineDetail.techsheetLabel} ${wineName} ${wine.vintage}`, url: `/techsheets/${slug}-${wine.vintage}-en.pdf` },
+  ...(slug === 'logos' ? [{ label: `${t.wineDetail.techsheet18m} ${wineName} ${wine.vintage}`, url: `/techsheets/logos-2023-18m-en.pdf` }] : []),
 ];
 ---
 
-<Base title={pageTitle} description={pageDesc} lang="fr" frPath={`/cuvees/${slug}/`} enPath={`/en/wines/${slug}/`}>
-  <Nav lang="fr" frPath={`/cuvees/${slug}/`} enPath={`/en/wines/${slug}/`} />
+<Base title={pageTitle} description={pageDesc} lang={lang} frPath={frPath} enPath={enPath}>
+  <Nav lang={lang} frPath={frPath} enPath={enPath} />
 
   <SeoBreadcrumbs items={[
-    { name: 'Accueil', url: '/' },
-    { name: 'Cuvées', url: '/cuvees' },
-    { name: `${wine.name} ${wine.vintage}`, url: `/cuvees/${slug}` },
+    { name: 'Home', url: '/en/' },
+    { name: 'Wines', url: '/en/wines/' },
+    { name: `${wine.name} ${wine.vintage}`, url: `/en/wines/${slug}` },
   ]} />
 
   <!-- Hero Split -->
   <section class="wine-hero">
     <div class="wine-hero-left">
-      {heroImg && <img src={heroImg.src} alt={`Bouteille ${wine.name} ${wine.vintage}`} class="wine-bottle" />}
+      {heroImg && <img src={heroImg.src} alt={`Bottle ${wine.name} ${wine.vintage}`} class="wine-bottle" />}
     </div>
     <div class="wine-hero-right">
       <span class="wine-category-badge">{categoryLabel} · {colorLabel}</span>
-      <p class="wine-slogan">{wine.slogan.fr}</p>
+      <p class="wine-slogan">{wine.slogan.en}</p>
       <h1 class="wine-title">{wine.name}</h1>
       <p class="wine-vintage-label">{wine.vintage}</p>
       <p class="wine-grapes-detail">{wine.grapes}</p>
       <div class="wine-data-row">
         <div class="wine-data-point">
-          <span class="wine-data-label">Terroir</span>
+          <span class="wine-data-label">{t.wineDetail.terroirLabel}</span>
           <span class="wine-data-value">{terroirShort}</span>
         </div>
         <div class="wine-data-point">
-          <span class="wine-data-label">Élevage</span>
+          <span class="wine-data-label">{t.wineDetail.ageingLabel}</span>
           <span class="wine-data-value">{elevage || '—'}</span>
         </div>
         <div class="wine-data-point">
-          <span class="wine-data-label">Agriculture</span>
+          <span class="wine-data-label">{t.wineDetail.farmingLabel}</span>
           <span class="wine-data-value">{certDisplay}</span>
         </div>
       </div>
@@ -131,10 +131,10 @@ const techSheets = [
   <!-- Story -->
   <section class="wine-story">
     <div class="wine-story-inner">
-      <span class="section-label">L'histoire de cette cuvée</span>
-      <p class="wine-story-text">{wine.about.fr}</p>
+      <span class="section-label">{t.wineDetail.storyLabel}</span>
+      <p class="wine-story-text">{wine.about.en}</p>
       {wine.nameMeaning && (
-        <p class="wine-name-meaning">{wine.name} — {wine.nameMeaning.fr}</p>
+        <p class="wine-name-meaning">{wine.name} — {wine.nameMeaning.en}</p>
       )}
     </div>
   </section>
@@ -142,22 +142,22 @@ const techSheets = [
   <!-- Tasting + Pairing -->
   <section class="wine-tasting">
     <div class="wine-tasting-inner">
-      <span class="section-label wine-tasting-label">Dégustation</span>
-      <p class="wine-tasting-text">{wine.degustation.fr}</p>
-      <span class="section-label wine-accords-label">Accords</span>
+      <span class="section-label wine-tasting-label">{t.wineDetail.tastingLabel}</span>
+      <p class="wine-tasting-text">{wine.degustation.en}</p>
+      <span class="section-label wine-accords-label">{t.wineDetail.pairingsLabel}</span>
       <ul class="wine-pairing-list">
         {pairings.map((p) => (
           <li>{p}</li>
         ))}
       </ul>
-      <p class="wine-serving">Servir frais, environ {wine.servir}</p>
+      <p class="wine-serving">{t.wineDetail.servingPrefix} {wine.servir}</p>
     </div>
   </section>
 
   <!-- Vinification -->
   <section class="wine-vinification">
     <div class="wine-vinification-inner">
-      <span class="section-label">Vinification</span>
+      <span class="section-label">{t.wineDetail.vinificationLabel}</span>
       <p class="wine-vinif-summary">{vinifSummary}</p>
     </div>
   </section>
@@ -165,7 +165,7 @@ const techSheets = [
   <!-- Download -->
   <section class="wine-download">
     <div class="wine-download-inner">
-      <span class="section-label" style="display:block;margin-bottom:.5rem">Télécharger</span>
+      <span class="section-label" style="display:block;margin-bottom:.5rem">{t.wineDetail.downloadLabel}</span>
       {techSheets.map((sheet) => (
         <a href={sheet.url} class="wine-pdf-link" target="_blank" rel="noopener">
           <svg class="pdf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="16" height="16">
@@ -185,18 +185,18 @@ const techSheets = [
   <div class="wine-cta">
     <div class="wine-cta-inner">
       <div class="wine-cta-text">
-        <h3>Ce vin vous intéresse ?</h3>
-        <p>Tarifs et conditions pour les professionnels.</p>
+        <h3>{t.wineDetail.ctaHeading}</h3>
+        <p>{t.wineDetail.ctaSub}</p>
       </div>
-      <a href="mailto:contact@abinitio-wines.com" class="wine-cta-btn">Nous contacter</a>
+      <a href="mailto:contact@abinitio-wines.com" class="wine-cta-btn">{t.wineDetail.ctaButton}</a>
     </div>
   </div>
 
   <!-- Prev/Next -->
   <div class="wine-prevnext">
     <div class="wine-prevnext-inner">
-      <a href={`/cuvees/${prevSlug}`} class="wine-prev">← {prevName}</a>
-      <a href={`/cuvees/${nextSlug}`} class="wine-next">{nextName} →</a>
+      <a href={`/en/wines/${prevSlug}`} class="wine-prev">← {prevName}</a>
+      <a href={`/en/wines/${nextSlug}`} class="wine-next">{nextName} →</a>
     </div>
   </div>
 
@@ -205,8 +205,8 @@ const techSheets = [
     "@context": "https://schema.org",
     "@type": "Product",
     "name": `${wine.name} ${wine.vintage}`,
-    "brand": { "@type": "Brand", "name": "Ab Initio" },
-    "description": `${wine.slogan.fr}. ${wine.about.fr.substring(0, 200)}`,
+    "brand": { "@type": "Brand", "name": "AB Initio" },
+    "description": `${wine.slogan.en}. ${wine.about.en.substring(0, 200)}`,
     "category": "Wine",
     "material": wine.grapes,
     "manufacturer": {
@@ -216,7 +216,7 @@ const techSheets = [
     }
   })} />
 
-  <Footer lang="fr" frPath={`/cuvees/${slug}/`} enPath={`/en/wines/${slug}/`} />
+  <Footer lang={lang} frPath={frPath} enPath={enPath} />
 </Base>
 
 <style>

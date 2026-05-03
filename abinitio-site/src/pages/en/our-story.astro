@@ -1,109 +1,118 @@
 ---
-import Base from '../layouts/Base.astro';
-import Nav from '../components/Nav.astro';
-import Footer from '../components/Footer.astro';
-import SeoBreadcrumbs from '../components/SeoBreadcrumbs.astro';
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import SeoBreadcrumbs from '../../components/SeoBreadcrumbs.astro';
+import enT from '../../i18n/en.json';
 
-import grandpere from '../assets/histoire/grandpere-yves.jpg';
-import vignes from '../assets/histoire/vignes-providence.jpg';
-import kairos from '../assets/histoire/kairos-bouteille.jpg';
-import partners from '../assets/histoire/emmanuel-claire-fred.jpg';
-import lifering from '../assets/histoire/parents-life-ring.jpg';
-import bateau from '../assets/images/photos/emmanuel-roblin-vineyard.jpg';
+import grandpere from '../../assets/histoire/grandpere-yves.jpg';
+import vignes from '../../assets/histoire/vignes-providence.jpg';
+import kairos from '../../assets/histoire/kairos-bouteille.jpg';
+import partners from '../../assets/histoire/emmanuel-claire-fred.jpg';
+import bateau from '../../assets/images/photos/emmanuel-roblin-vineyard.jpg';
+
+const t = enT;
+const lang = 'en';
+const frPath = '/histoire/';
+const enPath = '/en/our-story/';
 ---
 
 <Base
-  title="Histoire | AB Initio — Vins biologiques, Loire"
-  description="L'histoire d'Emmanuel Roblin et d'AB Initio : une rencontre, des vignes centenaires, une conviction. Vins biologiques élevés en amphore, Loire."
-  lang="fr"
-  frPath="/histoire/"
-  enPath="/en/our-story/"
+  title="Our Story — AB Initio, from the beginning"
+  description="The story of AB Initio: how Emmanuel Roblin left a career in design to create organic wines in the Muscadet Nantais, Loire Valley."
+  lang={lang}
+  frPath={frPath}
+  enPath={enPath}
 >
-  <Nav lang="fr" frPath="/histoire/" enPath="/en/our-story/" />
+  <Nav lang={lang} frPath={frPath} enPath={enPath} />
   <SeoBreadcrumbs items={[
-    { name: 'Accueil', url: '/' },
-    { name: 'Histoire', url: '/histoire' },
+    { name: 'Home', url: '/en/' },
+    { name: 'Our Story', url: '/en/our-story' },
   ]} />
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Person",
     "name": "Emmanuel Roblin",
-    "jobTitle": "Artisan vinificateur",
-    "worksFor": { "@type": "Organization", "name": "Ab Initio" },
-    "url": "https://www.abinitio-wines.com/histoire"
+    "jobTitle": "Artisan winemaker",
+    "worksFor": { "@type": "Organization", "name": "AB Initio" },
+    "url": "https://www.abinitio-wines.com/en/our-story"
   })} />
 
   <!-- 1. Hero title -->
   <div class="hero-titre">
-    <span class="eyebrow">Histoire</span>
-    <h1>Depuis le commencement</h1>
+    <span class="eyebrow">{t.storyPage.eyebrow}</span>
+    <h1>{t.storyPage.title}</h1>
   </div>
 
   <!-- 2. Photo + text side by side -->
   <section class="hero-histoire">
     <div class="hero-photo">
-      <img src={grandpere.src} alt="Yves, grand-père d'Emmanuel, marin pêcheur" loading="eager" />
+      <img src={grandpere.src} alt="Yves, Emmanuel's grandfather, fisherman" loading="eager" />
     </div>
     <div class="hero-text">
-      <p class="rien">Rien n'arrive sans raison…</p>
+      <p class="rien">For nothing happens without reason…</p>
       <div class="hero-body">
-        <p><strong>Octobre 2015, un ami caviste m'emmène à un salon près de Nantes.</strong> Sur le stand du Domaine de l'Écu, Fred Niger me fait déguster son Melon de Bourgogne élevé en amphore. Ce vin me bouleverse, littéralement — je m'en souviens encore très précisément.</p>
+        <p><strong>October 2015, Nicolas, a friend who works in wine, takes me to a salon near Nantes.</strong> At the Domaine de l'Écu stand, Fred Niger has me taste his amphora-aged Melon de Bourgogne. The wine moves me, literally — I still remember it vividly.</p>
       </div>
     </div>
   </section>
 
   <div class="text-col text-col-left">
-    <p>Six mois plus tard, je rejoins Fred à l'Écu pour quelques semaines de stage, suivi des vendanges. <strong>Saisi par la passion, je quitte un poste confortable dans le design haut de gamme pour me plonger dans la terre et le vivant.</strong> La formation à l'école de viticulture d'Amboise, à l'époque la seule en France spécialisée en agriculture et vinification biologiques et biodynamiques, me fait rencontrer des formateurs remarquables — Damien Delecheneau, Vincent Carême, Tanguy Perraud, Philippe Chigard…</p>
+    <p>Six months later, I join Fred at l'Écu for an internship, followed by harvest. <strong>Seized by passion, I leave a safe career in interior design and furniture to immerse myself in the dirt and the vines.</strong> The viticulture school in Amboise — at the time the only one in France specialising in organic and biodynamic farming and winemaking — introduces me to remarkable teachers: Anne-Cécile Jadaud, Damien Delecheneau, Vincent Carême, Tanguy Perraud, Philippe Chigard…</p>
   </div>
 
   <div class="text-col text-col-third">
-    <p><strong>Vendanges 2018, Fred me parle d'un petit domaine pas loin de l'Écu.</strong> Arrivé au Domaine de la Providence, un coup de foudre pour ces vignes centenaires profondément enracinées dans des sous-sols de granite et de schiste et ses pratiques culturales douces. J'emménage dans une petite maison attenante au chai et commence la taille de la vigne.</p>
+    <p><strong>Harvest 2018, Fred mentions a small estate not far from l'Écu.</strong> Arriving at Domaine de la Providence, love at first sight: I fall instantly for these gnarly vines — like the century-old Melon — deeply rooted in granite and schist subsoils, and for the gentle farming practices. I move into a small house next to the cellar and start pruning.</p>
   </div>
 
-  <img src={vignes.src} alt="Les vignes de la Providence au coucher du soleil, Vallet" class="vignes-break" loading="lazy" />
+  <img src={vignes.src} alt="The Providence vineyards at sunset, Vallet" class="vignes-break" loading="lazy" />
 
   <!-- Kaïros + AB Initio creation -->
   <div class="kairos-section">
     <div class="kairos-text">
-      <p>L'année suivante, l'aventure commence vraiment : je vendange une parcelle de Gamay à la Providence et en fais mon premier vin, avec une amphore et le soutien administratif prêtés par Fred et Claire. <strong>Dix-huit mois plus tard, mon rêve devient réalité : le vin est mis en bouteille et baptisé Kaïros — le moment opportun, l'instant juste.</strong></p>
-      <p><strong>Motivés par ce premier succès, Claire, Fred et moi créons AB Initio en août 2020.</strong> Moi dans le rôle d'artisan-vinificateur qui sélectionne les vignerons et les parcelles, crée et élabore les vins et les commercialise, avec l'indispensable soutien matériel et logistique de Fred et Claire. <strong>Une gamme de vins de passion, de philosophie et de copains.</strong></p>
-      <p>Le commencement — <em>initio</em> — des vins se trouve souvent dans la taille, un autre moment crucial ! Presto, une proposition singulière des trois cépages du Nantais, s'inspire d'une parcelle complantée. Philia, l'image des étés bretons chez grand-père pêcheur, est née en taillant des vieilles Folles Blanches sous une pluie battante.</p>
+      <p>The following year, the adventure truly begins: we harvest a parcel of Gamay at la Providence and make my first wine, with an amphora lent by Fred and Claire, his partner, and their administrative support. <strong>Eighteen months later, my dream becomes real: the wine is bottled. Christened Kaïros — the opportune moment, the right instant, a symbolic name for a wine born out of serendipity.</strong></p>
+      <p><strong>Driven by that first success, Claire, Fred and I create AB Initio in August 2020.</strong> Me in the role of artisan winemaker — selecting the growers and the parcels, creating and crafting the wines, bringing them to market — with the indispensable material and logistical support of Fred and Claire. <strong>A range of wines born of passion, philosophy and friendship begins to take shape.</strong></p>
     </div>
     <div class="kairos-right">
-      <img src={kairos.src} alt="Bouteille Kaïros, première cuvée AB Initio" class="kairos-bottle" loading="lazy" />
-      <p class="cuvees-link"><a href="/cuvees">Découvrir nos cuvées →</a></p>
+      <img src={kairos.src} alt="Kaïros bottle, AB Initio's first cuvée" class="kairos-bottle" loading="lazy" />
+      <p class="cuvees-link"><a href="/en/wines/">{t.storyPage.inlineCta}</a></p>
     </div>
+  </div>
+
+  <!-- Continuation of narrative -->
+  <div class="text-col">
+    <p>The beginning — <em>initio</em> — of a wine is often found in the long, meditative pruning periods, another crucial moment. Presto, a singular take on the three Nantais grapes, draws its inspiration from a field blend; Philia, the image of Breton summers at my grandfather's house, was born while pruning old Folle Blanche vines in relentless December rain.</p>
   </div>
 
   <!-- Text column — final -->
   <div class="text-col">
-    <p><strong>Pas à pas, je crée un univers à mon image.</strong> AB Initio est l'estuaire naturel de mon fleuve de vie (pas tranquille), un projet de conviction empreint de tout ce qui m'a formé, de tout ce qui m'est cher : mon grand-père et son bateau qui partait pêcher à la ligne dans la baie de Douarnenez, à Saint-Jean-de-Luz ou à Saint-Nazaire, où mes parents se marient et où je suis né. L'océan, force omniprésente pour ma famille. Une abondance de poissons, de crustacés, d'huîtres — le quotidien de mon enfance, naturellement reflété dans la personnalité de mes vins, dans la salinité, la tension, mais aussi la légèreté. Ma Bretagne, une ancre identitaire ; le Muscadet, un chez-moi adopté, un terroir découvert. Mes études de philosophie, mon besoin d'aller au fond des choses qu'on retrouve dans les noms des cuvées, dans le regard que je porte sur la vigne, le vin, l'humain. <strong>Tous ces moments de bascule, des rencontres qui nous font vibrer.</strong></p>
+    <p><strong>Little by little, a world takes shape — my world.</strong> AB Initio is the natural estuary of my life — all its currents, all its silt, all its force. A project of conviction, carrying everything that made me, everything I hold dear: my grandfather and his boat, heading out to fish in the bay of Douarnenez, along the coasts of Saint-Jean-de-Luz and Saint-Nazaire, where I was born. The ocean, an ever-present force in my family. An abundance of fish, seafood, oysters — the fabric of my childhood, naturally reflected in the personality of my wines: in their salinity, their tension, but also their breeze-like lightness. Brittany, an anchor of identity; the Muscadet, a new-found home, a terroir discovered. My philosophy studies, my need to look beneath the surface, reflected in the names of the wines, in the way I approach the vines, the wines, the people I work with. <strong>All these turning points, these encounters that move us.</strong></p>
   </div>
 
   <!-- Nihil -->
   <div class="nihil">
-    <p>Car rien n'arrive sans raison — <em>nihil fit sine causa…</em></p>
+    <p>For nothing happens without reason — <em>nihil fit sine causa…</em></p>
   </div>
 
-  <p class="author-signature">— Emmanuel Roblin, artisan vinificateur</p>
+  <p class="author-signature">{t.storyPage.byline}</p>
 
   <section class="histoire-cta">
     <div class="histoire-cta-inner">
       <div class="histoire-cta-text">
-        <p class="histoire-cta-title">Prochaine rencontre : vous.</p>
-        <p class="histoire-cta-sub">Ecrivons la suite de cette histoire sur votre carte des vins.</p>
+        <p class="histoire-cta-title">{t.storyPage.ctaHeading}</p>
+        <p class="histoire-cta-sub">{t.storyPage.ctaSub}</p>
       </div>
-      <a href="mailto:contact@abinitio-wines.com" class="histoire-cta-btn">Contactez-nous</a>
+      <a href="mailto:contact@abinitio-wines.com" class="histoire-cta-btn">{t.storyPage.ctaButton}</a>
     </div>
   </section>
 
   <!-- Archive photos -->
   <div class="archive-photos">
-    <img src={bateau.src} alt="Emmanuel Roblin dans les vignes du Muscadet nantais" loading="lazy" />
-    <img src={partners.src} alt="Emmanuel Roblin, Claire Niger et Fred Niger, associés AB Initio" loading="lazy" />
+    <img src={bateau.src} alt="Emmanuel Roblin in the Muscadet Nantais vineyards" loading="lazy" />
+    <img src={partners.src} alt="Emmanuel Roblin, Claire Niger and Fred Niger, AB Initio partners" loading="lazy" />
   </div>
 
-  <Footer lang="fr" frPath="/histoire/" enPath="/en/our-story/" />
+  <Footer lang={lang} frPath={frPath} enPath={enPath} />
 </Base>
 
 <style>
@@ -289,20 +298,6 @@ import bateau from '../assets/images/photos/emmanuel-roblin-vineyard.jpg';
     object-fit: cover;
     width: 100%;
     display: block;
-  }
-
-  /* Pull quote */
-  .pull-quote {
-    max-width: 560px;
-    margin: 64px auto 56px;
-    padding-left: 24px;
-    border-left: 1.5px solid #c9a96e;
-    font-family: var(--serif);
-    font-size: 1.4rem;
-    font-style: italic;
-    font-weight: 300;
-    color: var(--black);
-    line-height: 1.5;
   }
 
   /* Histoire CTA */

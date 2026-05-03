@@ -1,28 +1,57 @@
 ---
 import logoImg from '../assets/images/logo/logo-ab-initio-clean.png';
+import enT from '../i18n/en.json';
+import frT from '../i18n/fr.json';
 
 interface Props {
   isHomepage?: boolean;
+  lang?: 'fr' | 'en';
+  frPath?: string;
+  enPath?: string;
 }
 
-const { isHomepage = false } = Astro.props;
+const {
+  isHomepage = false,
+  lang = 'fr',
+  frPath = '/',
+  enPath = '/en/',
+} = Astro.props;
 
+const t = lang === 'en' ? enT : frT;
+const otherLangPath = lang === 'en' ? frPath : enPath;
+
+const navItems = lang === 'en'
+  ? [
+      { href: '/en/wines/', label: t.nav.wines },
+      { href: '/en/our-story/', label: t.nav.story },
+      { href: '/en/events/', label: t.nav.events },
+      { href: '/en/find-our-wines/', label: t.nav.find },
+    ]
+  : [
+      { href: '/cuvees', label: t.nav.wines },
+      { href: '/histoire', label: t.nav.story },
+      { href: '/salons', label: t.nav.events },
+      { href: '/trouver-nos-vins', label: t.nav.find },
+    ];
+
+const homeHref = lang === 'en' ? '/en/' : '/';
 const path = Astro.url.pathname;
-const navItems = [
-  { href: '/cuvees', label: 'Cuvées' },
-  { href: '/histoire', label: 'Histoire' },
-  { href: '/salons', label: 'Salons' },
-  { href: '/trouver-nos-vins', label: 'Trouver nos vins' },
-];
+
 function isActive(href: string): boolean {
   if (href.startsWith('#')) return false;
   return path.startsWith(href);
 }
+
+const logoAlt = lang === 'en'
+  ? 'AB Initio — Organic wines, Loire'
+  : 'Ab Initio — Vins biologiques, Loire';
+const menuLabelOpen = lang === 'en' ? 'Open menu' : 'Ouvrir le menu';
+const menuLabelClose = lang === 'en' ? 'Close menu' : 'Fermer le menu';
 ---
 
 <nav id="nav" class:list={[{ 'nav-homepage': isHomepage, 'scrolled': !isHomepage }]}>
-  <a href="/" class:list={['nav-logo-link', { 'nav-logo-hidden': isHomepage }]}>
-    <img class="nav-logo-img" src={logoImg.src} alt="Ab Initio — Vins biologiques, Loire" />
+  <a href={homeHref} class:list={['nav-logo-link', { 'nav-logo-hidden': isHomepage }]}>
+    <img class="nav-logo-img" src={logoImg.src} alt={logoAlt} />
   </a>
 
   <!-- Desktop links -->
@@ -31,22 +60,22 @@ function isActive(href: string): boolean {
       <li><a href={item.href} class:list={[{ active: isActive(item.href) }]}>{item.label}</a></li>
     ))}
     <li class="nav-lang">
-      <span class="lang-current">FR</span>
-      <span class="lang-alt">EN</span>
+      <span class="lang-current">{t.nav.lang_self}</span>
+      <a class="lang-alt" href={otherLangPath}>{t.nav.lang_other}</a>
     </li>
   </ul>
 
   <!-- Hamburger button -->
-  <button class="nav-hamburger" id="nav-hamburger" aria-label="Ouvrir le menu">
+  <button class="nav-hamburger" id="nav-hamburger" aria-label={menuLabelOpen}>
     <span></span>
     <span></span>
     <span></span>
   </button>
 </nav>
 
-<!-- Mobile overlay — outside nav, fixed to viewport -->
+<!-- Mobile overlay -->
 <div class="mobile-overlay" id="mobile-overlay">
-  <button class="mobile-close" id="mobile-close" aria-label="Fermer le menu">
+  <button class="mobile-close" id="mobile-close" aria-label={menuLabelClose}>
     <span></span>
     <span></span>
   </button>
@@ -56,9 +85,9 @@ function isActive(href: string): boolean {
     ))}
   </ul>
   <div class="mobile-lang">
-    <span class="lang-current">FR</span>
+    <span class="lang-current">{t.nav.lang_self}</span>
     <span class="lang-sep">/</span>
-    <span class="lang-alt-mobile">EN</span>
+    <a class="lang-alt-mobile" href={otherLangPath}>{t.nav.lang_other}</a>
   </div>
 </div>
 
@@ -193,6 +222,8 @@ function isActive(href: string): boolean {
     overflow: hidden;
     transition: all .3s;
     display: inline-block;
+    border: none;
+    padding-bottom: 0;
   }
 
   .nav-lang:hover .lang-alt {

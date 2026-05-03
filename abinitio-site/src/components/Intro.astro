@@ -1,14 +1,24 @@
-<section class="intro fade-in" id="intro" style="padding-top:5rem;padding-bottom:5rem">
-  <span class="section-label">Depuis le commencement</span>
-  <p class="intro-text">Né entre <em>Loire et Bretagne</em>, sur les coteaux du Muscadet nantais, Ab Initio est un projet de vins biologiques vivants. Folle Blanche, Melon de Bourgogne, Chardonnay, Gamay : des cépages enracinés dans le granite, le schiste et l'orthogneiss, vinifiés en <em>amphores</em> de terre cuite ou en cuves béton souterraines. La conviction que rien n'arrive sans raison.</p>
-</section>
+---
+interface Props {
+  lang?: 'fr' | 'en';
+}
 
-<script>
-  document.querySelector('.intro-b2b a')?.addEventListener('click', (e) => {
-    e.preventDefault();
-    document.getElementById('pro')?.scrollIntoView({ behavior: 'smooth' });
-  });
-</script>
+const { lang = 'fr' } = Astro.props;
+---
+
+<section class="intro fade-in" id="intro" style="padding-top:5rem;padding-bottom:5rem">
+  {lang === 'en' ? (
+    <>
+      <span class="section-label">From the beginning</span>
+      <p class="intro-text">Born between <em>the Loire and Brittany</em>, on the gentle slopes of the Muscadet Nantais, AB Initio is a project of artisanal, living wines. Folle Blanche, Melon de Bourgogne, Chardonnay, Gamay: organically-farmed vines rooted in granite, schist and orthogneiss, hand-picked and respectfully vinified in terracotta <em>amphoras</em> or underground concrete vats. The conviction that nothing happens without reason.</p>
+    </>
+  ) : (
+    <>
+      <span class="section-label">Depuis le commencement</span>
+      <p class="intro-text">Né entre <em>Loire et Bretagne</em>, sur les coteaux du Muscadet nantais, Ab Initio est un projet de vins biologiques vivants. Folle Blanche, Melon de Bourgogne, Chardonnay, Gamay : des cépages enracinés dans le granite, le schiste et l'orthogneiss, vinifiés en <em>amphores</em> de terre cuite ou en cuves béton souterraines. La conviction que rien n'arrive sans raison.</p>
+    </>
+  )}
+</section>
 
 <style>
   .intro {
@@ -27,25 +37,5 @@
   .intro-text em {
     font-style: italic;
     color: var(--accent);
-  }
-
-  .intro-detail {
-    font-family: var(--sans);
-    font-size: .88rem;
-    font-weight: 300;
-    color: var(--mid-gray);
-    margin-top: 2rem;
-    max-width: 520px;
-    line-height: 1.8;
-  }
-
-  .intro-b2b {
-    font-family: var(--sans);
-    font-size: .8rem;
-    font-weight: 300;
-    color: var(--mid-gray);
-    margin-top: 1.2rem;
-    max-width: 520px;
-    line-height: 1.8;
   }
 </style>

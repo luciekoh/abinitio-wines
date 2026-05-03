@@ -1,11 +1,23 @@
 ---
 import amphoresImg from '../assets/images/photos/amphores-selection.jpg';
+import enT from '../i18n/en.json';
+import frT from '../i18n/fr.json';
+
+interface Props {
+  lang?: 'fr' | 'en';
+}
+
+const { lang = 'fr' } = Astro.props;
+const t = lang === 'en' ? enT : frT;
+const altText = lang === 'en'
+  ? "Vinification amphoras in the AB Initio cellar"
+  : "Amphores de vinification dans la cave d'Ab Initio";
 ---
 
 <div class="photo-break">
-  <img src={amphoresImg.src} alt="Amphores de vinification dans la cave d'Ab Initio" loading="lazy" />
+  <img src={amphoresImg.src} alt={altText} loading="lazy" />
   <div class="photo-break-overlay">
-    <p class="photo-break-text fade-in">« Rien n'arrive sans raison. Chaque vin est le fruit d'une intention, d'un terroir, d'un instant saisi. »</p>
+    <p class="photo-break-text fade-in">{t.homepage.pullQuote}</p>
   </div>
 </div>
 

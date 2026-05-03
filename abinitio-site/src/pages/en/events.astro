@@ -1,10 +1,16 @@
 ---
-import Base from '../layouts/Base.astro';
-import Nav from '../components/Nav.astro';
-import Footer from '../components/Footer.astro';
-import SeoBreadcrumbs from '../components/SeoBreadcrumbs.astro';
-import featuredBg from '../assets/images/photos/ile-dyeu-inspiration.jpg';
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import SeoBreadcrumbs from '../../components/SeoBreadcrumbs.astro';
+import featuredBg from '../../assets/images/photos/ile-dyeu-inspiration.jpg';
 import { getCollection } from 'astro:content';
+import enT from '../../i18n/en.json';
+
+const t = enT;
+const lang = 'en';
+const frPath = '/salons/';
+const enPath = '/en/events/';
 
 const allSalons = await getCollection('salons');
 const today = new Date();
@@ -29,16 +35,16 @@ const pastByYear = past.reduce<Record<string, typeof past>>((acc, salon) => {
 }, {});
 const pastYears = Object.keys(pastByYear).sort((a, b) => parseInt(b) - parseInt(a));
 
-const monthsFR = ['jan', 'fév', 'mars', 'avr', 'mai', 'juin', 'juil', 'août', 'sept', 'oct', 'nov', 'déc'];
+const monthsEN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 function formatRange(startISO: Date, endISO: Date, includeYear = true): string {
   const s = new Date(startISO), e = new Date(endISO);
   const sameDay = s.toDateString() === e.toDateString();
   const sameMonth = s.getMonth() === e.getMonth() && s.getFullYear() === e.getFullYear();
   const yearStr = includeYear ? ` ${s.getFullYear()}` : '';
-  if (sameDay) return `${s.getDate()} ${monthsFR[s.getMonth()]}${yearStr}`;
-  if (sameMonth) return `${s.getDate()}–${e.getDate()} ${monthsFR[s.getMonth()]}${yearStr}`;
-  return `${s.getDate()} ${monthsFR[s.getMonth()]} – ${e.getDate()} ${monthsFR[e.getMonth()]}${yearStr}`;
+  if (sameDay) return `${monthsEN[s.getMonth()]} ${s.getDate()}${yearStr}`;
+  if (sameMonth) return `${monthsEN[s.getMonth()]} ${s.getDate()}–${e.getDate()}${yearStr}`;
+  return `${monthsEN[s.getMonth()]} ${s.getDate()} – ${monthsEN[e.getMonth()]} ${e.getDate()}${yearStr}`;
 }
 
 function shortRange(startISO: Date, endISO: Date): string {
@@ -46,50 +52,61 @@ function shortRange(startISO: Date, endISO: Date): string {
 }
 
 function tagLabel(type: string): string {
-  if (type === 'pro') return 'Professionnels';
-  if (type === 'public') return 'Public';
-  if (type === 'mixte') return 'Pro · Public';
+  if (type === 'pro') return t.eventsPage.tagPro;
+  if (type === 'public') return t.eventsPage.tagPublic;
+  if (type === 'mixte') return t.eventsPage.tagMixed;
   return type;
 }
 
+const countryMap: Record<string, string> = t.countries;
+function localizeCountry(c: string): string {
+  return countryMap[c] || c;
+}
+
+function eventName(salon: any): string {
+  return salon.data.name_en || salon.data.name;
+}
+
 function rdvMailto(name: string): string {
-  const subject = encodeURIComponent(`Rendez-vous au salon ${name}`);
+  const subject = encodeURIComponent(`Meeting at ${name}`);
   return `mailto:contact@abinitio-wines.com?subject=${subject}`;
 }
+
+const subtitle = `Where to find us — ${new Date().getFullYear()} season`;
 ---
 
-<Base title="Salons — Ab Initio" description="Où nous retrouver — salons et événements vins biologiques Ab Initio." lang="fr" frPath="/salons/" enPath="/en/events/">
-  <Nav lang="fr" frPath="/salons/" enPath="/en/events/" />
+<Base title="Events — Where to find AB Initio wines, 2026 season" description="Find AB Initio at wine fairs and events in 2026: RAW WINE Tokyo, Sous les Pavés la Vigne Paris, and more." lang={lang} frPath={frPath} enPath={enPath}>
+  <Nav lang={lang} frPath={frPath} enPath={enPath} />
   <SeoBreadcrumbs items={[
-    { name: 'Accueil', url: '/' },
-    { name: 'Salons', url: '/salons' },
+    { name: 'Home', url: '/en/' },
+    { name: 'Events', url: '/en/events' },
   ]} />
 
   <section class="opener">
-    <h1>Salons</h1>
-    <p class="subtitle">Où nous retrouver — Saison {new Date().getFullYear()}</p>
+    <h1>{t.eventsPage.eyebrow}</h1>
+    <p class="subtitle">{subtitle}</p>
   </section>
 
   {featured && (
     <section class="featured" style={`--featured-bg: url('${featuredBg.src}')`}>
       <div class="featured-inner">
         <div>
-          <div class="label">Prochain rendez-vous</div>
+          <div class="label">{t.eventsPage.featuredLabel}</div>
           <div class="featured-date">{formatRange(featured.data.start_date, featured.data.end_date)}</div>
           <div class="featured-tag">{tagLabel(featured.data.type)}</div>
         </div>
         <div>
-          <h2>{featured.data.name}</h2>
-          <p class="venue">{featured.data.city}{featured.data.country !== 'France' ? `, ${featured.data.country}` : ''}</p>
+          <h2>{eventName(featured)}</h2>
+          <p class="venue">{featured.data.city}{featured.data.country !== 'France' ? `, ${localizeCountry(featured.data.country)}` : ''}</p>
 
           {featured.data.notes && (
-            <div class="notes" set:html={featured.data.notes} />
+            <div class="notes" set:html={featured.data.notes_en || featured.data.notes} />
           )}
 
           <div class="cta-row">
-            <a href={rdvMailto(featured.data.name)} class="btn btn-primary">Prenez rendez-vous</a>
+            <a href={rdvMailto(eventName(featured))} class="btn btn-primary">{t.eventsPage.bookMeeting}</a>
             {featured.data.url && (
-              <a href={featured.data.url} target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Site du salon</a>
+              <a href={featured.data.url} target="_blank" rel="noopener noreferrer" class="btn btn-ghost">{t.eventsPage.eventWebsite}</a>
             )}
           </div>
         </div>
@@ -99,22 +116,22 @@ function rdvMailto(name: string): string {
 
   {!featured && (
     <section class="featured-empty">
-      <p>Calendrier {new Date().getFullYear() + 1} en cours de préparation. Restez en contact.</p>
+      <p>{t.eventsPage.emptyCalendar}</p>
     </section>
   )}
 
   {restUpcoming.length > 0 && (
     <section class="upcoming">
       <div class="upcoming-inner">
-        <div class="mini-header"><span class="eyebrow">Et puis</span></div>
+        <div class="mini-header"><span class="eyebrow">{t.eventsPage.upcomingLabel}</span></div>
         <div class="events-list">
           {restUpcoming.map(salon => (
             salon.data.url ? (
               <a href={salon.data.url} target="_blank" rel="noopener noreferrer" class="event">
                 <div class="event-date">{formatRange(salon.data.start_date, salon.data.end_date)}</div>
                 <div class="event-name">
-                  {salon.data.name}
-                  <span class="place">{salon.data.city}, {salon.data.country}</span>
+                  {eventName(salon)}
+                  <span class="place">{salon.data.city}, {localizeCountry(salon.data.country)}</span>
                 </div>
                 <div class="event-tag">{tagLabel(salon.data.type)}</div>
               </a>
@@ -122,8 +139,8 @@ function rdvMailto(name: string): string {
               <div class="event event-no-link">
                 <div class="event-date">{formatRange(salon.data.start_date, salon.data.end_date)}</div>
                 <div class="event-name">
-                  {salon.data.name}
-                  <span class="place">{salon.data.city}, {salon.data.country}</span>
+                  {eventName(salon)}
+                  <span class="place">{salon.data.city}, {localizeCountry(salon.data.country)}</span>
                 </div>
                 <div class="event-tag">{tagLabel(salon.data.type)}</div>
               </div>
@@ -137,17 +154,16 @@ function rdvMailto(name: string): string {
   <section class="salons-cta">
     <div class="salons-cta-inner">
       <div>
-        <h3>Pas de salon près de chez vous ?</h3>
-        <p>Pas de problème, on va trouver un point commun.</p>
+        <h3>{t.eventsPage.noticeText}</h3>
       </div>
-      <a href="mailto:contact@abinitio-wines.com" class="btn-pro">Nous contacter</a>
+      <a href="mailto:contact@abinitio-wines.com" class="btn-pro">{t.eventsPage.noticeCta}</a>
     </div>
   </section>
 
   {pastYears.length > 0 && (
     <section class="archive">
       <div class="archive-inner">
-        <div class="mini-header"><span class="eyebrow">Archive</span></div>
+        <div class="mini-header"><span class="eyebrow">{t.eventsPage.archiveLabel}</span></div>
         {pastYears.map(year => (
           <div class="year-row">
             <div class="year-num">{year}</div>
@@ -155,9 +171,9 @@ function rdvMailto(name: string): string {
               {pastByYear[year].map((salon, i) => (
                 <>
                   {salon.data.url ? (
-                    <a href={salon.data.url} target="_blank" rel="noopener noreferrer" class="archive-link">{salon.data.name}</a>
+                    <a href={salon.data.url} target="_blank" rel="noopener noreferrer" class="archive-link">{eventName(salon)}</a>
                   ) : (
-                    <span>{salon.data.name}</span>
+                    <span>{eventName(salon)}</span>
                   )}
                   <span class="place">{salon.data.city}, {shortRange(salon.data.start_date, salon.data.end_date)}</span>
                   {i < pastByYear[year].length - 1 && <span class="sep">·</span>}
@@ -170,7 +186,7 @@ function rdvMailto(name: string): string {
     </section>
   )}
 
-  <Footer lang="fr" frPath="/salons/" enPath="/en/events/" />
+  <Footer lang={lang} frPath={frPath} enPath={enPath} />
 </Base>
 
 <style>

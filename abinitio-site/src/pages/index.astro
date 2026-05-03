@@ -9,16 +9,20 @@ import PhotoBreak from '../components/PhotoBreak.astro';
 import StoryPreview from '../components/StoryPreview.astro';
 import EventStrip from '../components/EventStrip.astro';
 import Footer from '../components/Footer.astro';
+
+const lang = 'fr';
+const frPath = '/';
+const enPath = '/en/';
 ---
 
-<Base>
-  <Nav isHomepage={true} />
-  <Hero />
-  <Intro />
-  <WineGrid />
-  <ProCTA />
-  <PhotoBreak />
-  <StoryPreview />
-  <EventStrip />
-  <Footer />
+<Base lang={lang} frPath={frPath} enPath={enPath}>
+  <Nav isHomepage={true} lang={lang} frPath={frPath} enPath={enPath} />
+  <Hero lang={lang} />
+  <Intro lang={lang} />
+  <WineGrid lang={lang} />
+  <ProCTA lang={lang} />
+  <PhotoBreak lang={lang} />
+  <StoryPreview lang={lang} />
+  <EventStrip lang={lang} />
+  <Footer lang={lang} frPath={frPath} enPath={enPath} />
 </Base>

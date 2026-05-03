@@ -1,0 +1,89 @@
+---
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import enT from '../../i18n/en.json';
+
+const t = enT;
+const lang = 'en';
+const frPath = '/politique-de-confidentialite/';
+const enPath = '/en/privacy-policy/';
+---
+
+<Base title="Privacy policy — AB Initio" description="AB Initio privacy policy — organic wines, Loire Valley." lang={lang} frPath={frPath} enPath={enPath}>
+  <Nav lang={lang} frPath={frPath} enPath={enPath} />
+  <main class="legal-page">
+    <h1>{t.privacyPage.title}</h1>
+
+    <h2>{t.privacyPage.controllerHeading}</h2>
+    <p>
+      SAS AB INITIO<br />
+      Clos de l'Écu, 44430 Le Landreau, France<br />
+      <a href="mailto:contact@abinitio-wines.com">contact@abinitio-wines.com</a>
+    </p>
+
+    <h2>{t.privacyPage.dataHeading}</h2>
+    <p>{t.privacyPage.dataBody}</p>
+
+    <h2>{t.privacyPage.cookiesHeading}</h2>
+    <p>{t.privacyPage.cookiesBody}</p>
+    <p>{t.privacyPage.cookiesGA}</p>
+    <p>{t.privacyPage.cookiesClarity}</p>
+    <p>{t.privacyPage.cookiesPref}</p>
+    <p>{t.privacyPage.cookiesNecessary}</p>
+
+    <h2>{t.privacyPage.rightsHeading}</h2>
+    <p>{t.privacyPage.rightsBody}</p>
+
+    <h2>{t.privacyPage.updatesHeading}</h2>
+    <p>{t.privacyPage.updatesBody}</p>
+  </main>
+  <Footer lang={lang} frPath={frPath} enPath={enPath} />
+</Base>
+
+<style>
+  .legal-page {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 8rem 2rem 4rem;
+    font-family: var(--sans);
+    color: var(--dark-gray);
+  }
+
+  .legal-page h1 {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    font-weight: 300;
+    margin-bottom: 3rem;
+    color: var(--dark-gray);
+  }
+
+  .legal-page h2 {
+    font-family: var(--sans);
+    font-size: .65rem;
+    font-weight: 400;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--mid-gray);
+    margin-top: 2.5rem;
+    margin-bottom: .8rem;
+  }
+
+  .legal-page p {
+    font-size: .88rem;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--mid-gray);
+    margin-bottom: 1rem;
+  }
+
+  .legal-page a {
+    color: var(--dark-gray);
+    border-bottom: 1px solid transparent;
+    transition: border-color .3s;
+  }
+
+  .legal-page a:hover {
+    border-bottom-color: var(--dark-gray);
+  }
+</style>

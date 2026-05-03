@@ -1,17 +1,22 @@
 ---
 import { getCollection } from 'astro:content';
-import Base from '../../layouts/Base.astro';
-import Nav from '../../components/Nav.astro';
-import Footer from '../../components/Footer.astro';
-import SeoBreadcrumbs from '../../components/SeoBreadcrumbs.astro';
-import partnersData from '../../content/partners/list.json';
+import Base from '../../../layouts/Base.astro';
+import Nav from '../../../components/Nav.astro';
+import Footer from '../../../components/Footer.astro';
+import SeoBreadcrumbs from '../../../components/SeoBreadcrumbs.astro';
+import partnersData from '../../../content/partners/list.json';
+import enT from '../../../i18n/en.json';
+
 const partners = partnersData.items;
+const t = enT;
+const lang = 'en';
+const frPath = '/cuvees/';
+const enPath = '/en/wines/';
 
 const wines = await getCollection('wines');
 const philosophie = wines.filter((w) => w.data.category === 'philosophie');
 const copains = wines.filter((w) => w.data.category === 'copains');
 
-// Sort to match desired order
 const philoOrder = ['philia', 'eidos', 'logos', 'kedron', 'kairos'];
 const copOrder = ['presto', 'ekko', 'illico'];
 philosophie.sort((a, b) => philoOrder.indexOf(a.id) - philoOrder.indexOf(b.id));
@@ -30,24 +35,24 @@ function getLabel(slug: string) {
 ---
 
 <Base
-  title="Nos Cuvées — Vins biologiques Ab Initio, Muscadet & Rhône"
-  description="Découvrez les cuvées Ab Initio : vins biologiques élevés en amphore par Emmanuel Roblin. Folle Blanche, Melon de Bourgogne, Chardonnay, Gamay, Grenache. Muscadet nantais et Vallée du Rhône."
-  lang="fr"
-  frPath="/cuvees/"
-  enPath="/en/wines/"
+  lang={lang}
+  frPath={frPath}
+  enPath={enPath}
+  title="Our Wines — AB Initio organic wines, Loire Valley"
+  description="Discover AB Initio's range of organic wines: Wines of Philosophy aged in amphora, and Wines for Friends. Eight cuvées by artisan winemaker Emmanuel Roblin."
 >
-  <Nav lang="fr" frPath="/cuvees/" enPath="/en/wines/" />
+  <Nav lang={lang} frPath={frPath} enPath={enPath} />
 
   <SeoBreadcrumbs items={[
-    { name: 'Accueil', url: '/' },
-    { name: 'Cuvées', url: '/cuvees' },
+    { name: 'Home', url: '/en/' },
+    { name: 'Wines', url: '/en/wines/' },
   ]} />
 
   <!-- Banner -->
   <div class="cuvees-banner">
     <div class="cuvees-banner-inner">
-      <h1 class="cuvees-banner-title">Nos Cuvées</h1>
-      <p class="cuvees-banner-sub">Vins bio d'auteur – par Emmanuel Roblin, artisan vinificateur</p>
+      <h1 class="cuvees-banner-title">{t.winesPage.title}</h1>
+      <p class="cuvees-banner-sub">{t.winesPage.subtitle}</p>
     </div>
   </div>
 
@@ -56,26 +61,26 @@ function getLabel(slug: string) {
     <!-- Philosophie -->
     <div class="cuvees-category">
       <div class="cuvees-category-header">
-        <span class="cuvees-cat-name">Vins de la Philosophie</span>
-        <span class="cuvees-cat-desc">Élevés en amphore, nés de la patience</span>
+        <span class="cuvees-cat-name">{t.winesPage.philosophyLabel}</span>
+        <span class="cuvees-cat-desc">{t.winesPage.philosophySub}</span>
       </div>
       <div class="cuvees-grid">
         {philosophie.map((wine) => {
           const bottle = getBottle(wine.id);
           const label = getLabel(wine.id);
           return (
-            <a href={`/cuvees/${wine.id}`} class="cuvees-card">
+            <a href={`/en/wines/${wine.id}`} class="cuvees-card">
               <div class="cuvees-card-img">
-                {bottle && <img class="cuvees-bottle" src={bottle.src} alt={`Bouteille ${wine.data.name} ${wine.data.vintage}`} loading="lazy" />}
-                {label && <img class="cuvees-label" src={label.src} alt={`Étiquette ${wine.data.name} ${wine.data.vintage}`} loading="lazy" />}
+                {bottle && <img class="cuvees-bottle" src={bottle.src} alt={`Bottle ${wine.data.name} ${wine.data.vintage}`} loading="lazy" />}
+                {label && <img class="cuvees-label" src={label.src} alt={`Label ${wine.data.name} ${wine.data.vintage}`} loading="lazy" />}
                 <div class="cuvees-card-overlay">
-                  <span>Découvrir →</span>
+                  <span>{t.winesPage.wineCta}</span>
                 </div>
               </div>
               <div class="cuvees-card-text">
                 <span class="cuvees-card-name">{wine.data.name}</span>
-                <span class="cuvees-card-vintage">{wine.data.vintage} · {wine.data.color === 'blanc' ? 'Blanc' : 'Rouge'}</span>
-                <span class="cuvees-card-slogan">{wine.data.slogan.fr}</span>
+                <span class="cuvees-card-vintage">{wine.data.vintage} · {wine.data.color === 'blanc' ? 'White' : 'Red'}</span>
+                <span class="cuvees-card-slogan">{wine.data.slogan.en}</span>
               </div>
             </a>
           );
@@ -86,26 +91,26 @@ function getLabel(slug: string) {
     <!-- Copains -->
     <div class="cuvees-category">
       <div class="cuvees-category-header">
-        <span class="cuvees-cat-name">Vins des Copains</span>
-        <span class="cuvees-cat-desc">L'élan, le partage, la joie immédiate</span>
+        <span class="cuvees-cat-name">{t.winesPage.friendsLabel}</span>
+        <span class="cuvees-cat-desc">{t.winesPage.friendsSub}</span>
       </div>
       <div class="cuvees-grid">
         {copains.map((wine) => {
           const bottle = getBottle(wine.id);
           const label = getLabel(wine.id);
           return (
-            <a href={`/cuvees/${wine.id}`} class="cuvees-card">
+            <a href={`/en/wines/${wine.id}`} class="cuvees-card">
               <div class="cuvees-card-img">
-                {bottle && <img class="cuvees-bottle" src={bottle.src} alt={`Bouteille ${wine.data.name} ${wine.data.vintage}`} loading="lazy" />}
-                {label && <img class="cuvees-label" src={label.src} alt={`Étiquette ${wine.data.name} ${wine.data.vintage}`} loading="lazy" />}
+                {bottle && <img class="cuvees-bottle" src={bottle.src} alt={`Bottle ${wine.data.name} ${wine.data.vintage}`} loading="lazy" />}
+                {label && <img class="cuvees-label" src={label.src} alt={`Label ${wine.data.name} ${wine.data.vintage}`} loading="lazy" />}
                 <div class="cuvees-card-overlay">
-                  <span>Découvrir →</span>
+                  <span>{t.winesPage.wineCta}</span>
                 </div>
               </div>
               <div class="cuvees-card-text">
                 <span class="cuvees-card-name">{wine.data.name}</span>
-                <span class="cuvees-card-vintage">{wine.data.vintage} · {wine.data.color === 'blanc' ? 'Blanc' : 'Rouge'}</span>
-                <span class="cuvees-card-slogan">{wine.data.slogan.fr}</span>
+                <span class="cuvees-card-vintage">{wine.data.vintage} · {wine.data.color === 'blanc' ? 'White' : 'Red'}</span>
+                <span class="cuvees-card-slogan">{wine.data.slogan.en}</span>
               </div>
             </a>
           );
@@ -118,27 +123,27 @@ function getLabel(slug: string) {
   <div class="cuvees-cta">
     <div class="cuvees-cta-inner">
       <div class="cuvees-cta-text">
-        <h3>Professionnel·le du vin ?</h3>
-        <p>Tarifs, animations, accords — parlons-en ensemble.</p>
+        <h3>{t.winesPage.ctaHeading}</h3>
+        <p>{t.winesPage.ctaSub}</p>
       </div>
-      <a href="mailto:contact@abinitio-wines.com" class="cuvees-cta-btn">Nous contacter</a>
+      <a href="mailto:contact@abinitio-wines.com" class="cuvees-cta-btn">{t.winesPage.ctaButton}</a>
     </div>
   </div>
 
   <!-- Trust strip -->
   <div class="cuvees-trust">
     <div class="cuvees-trust-inner">
-      <span class="cuvees-trust-header">Ravis de travailler avec les passionné·es</span>
+      <span class="cuvees-trust-header">{t.winesPage.trustEyebrow}</span>
       <p class="trust-line">
         {partners.map((p) => (
           <span class="partner-unit">{p.name} <span class="place">{p.town}</span><span class="sep">·</span></span>
         ))}
-        <span class="more">et aussi…</span>
+        <span class="more">{t.winesPage.trustEtAussi}</span>
       </p>
     </div>
   </div>
 
-  <Footer lang="fr" frPath="/cuvees/" enPath="/en/wines/" />
+  <Footer lang={lang} frPath={frPath} enPath={enPath} />
 </Base>
 
 <style>

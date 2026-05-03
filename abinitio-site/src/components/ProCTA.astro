@@ -1,30 +1,40 @@
 ---
 import partnersData from '../content/partners/list.json';
+import enT from '../i18n/en.json';
+import frT from '../i18n/fr.json';
+
+interface Props {
+  lang?: 'fr' | 'en';
+}
+
+const { lang = 'fr' } = Astro.props;
+const t = lang === 'en' ? enT : frT;
 const partners = partnersData.items;
+const findHref = lang === 'en' ? '/en/find-our-wines' : '/trouver-nos-vins';
 ---
 
-<!-- Part A: CTA band — cream bg, teal text -->
+<!-- Part A: CTA band -->
 <div class="pro-cta" id="pro">
   <div class="pro-cta-inner fade-in">
     <div class="pro-cta-text">
-      <h3 class="pro-heading">Professionnel·le du vin ?</h3>
-      <p class="pro-subtitle">Tarifs, animations, accords — parlons-en ensemble.</p>
+      <h3 class="pro-heading">{t.homepage.ctaHeading}</h3>
+      <p class="pro-subtitle">{t.homepage.ctaSub}</p>
     </div>
-    <a href="mailto:contact@abinitio-wines.com" class="pro-btn">Nous contacter</a>
+    <a href="mailto:contact@abinitio-wines.com" class="pro-btn">{t.homepage.ctaButton}</a>
   </div>
 </div>
 
 <!-- Part B: Trust strip -->
 <div class="trust-strip">
   <div class="trust-inner fade-in">
-    <span class="trust-header">Ravis de travailler avec les passionné·es</span>
+    <span class="trust-header">{t.homepage.trustEyebrow}</span>
     <p class="trust-line">
       {partners.map((p) => (
         <span class="partner-unit">{p.name} <span class="place">{p.town}</span><span class="sep">·</span></span>
       ))}
-      <span class="more">et aussi…</span>
+      <span class="more">{t.homepage.trustEtAussi}</span>
     </p>
-    <a href="/trouver-nos-vins" class="section-cta trust-link">Trouver nos vins en France et au-delà →</a>
+    <a href={findHref} class="section-cta trust-link">{t.homepage.trustLink}</a>
   </div>
 </div>
 
