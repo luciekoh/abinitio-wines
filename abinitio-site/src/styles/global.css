@@ -83,7 +83,7 @@ section {
   font-weight: 400;
   letter-spacing: .15em;
   text-transform: uppercase;
-  color: var(--dark-gray);
+  color: var(--accent);
   border-bottom: 1px solid transparent;
   padding-bottom: .25rem;
   transition: border-color .3s, color .3s;
