@@ -3,13 +3,13 @@ backend:
   repo: luciekoh/abinitio-wines
   branch: main
 
-media_folder: "src/assets/images"
+media_folder: "abinitio-site/src/assets/images"
 public_folder: "/images"
 
 collections:
   - name: wines
     label: "Vins"
-    folder: "src/content/wines"
+    folder: "abinitio-site/src/content/wines"
     create: true
     slug: "{{slug}}"
     extension: md
@@ -80,7 +80,7 @@ collections:
 
   - name: events
     label: "Salons"
-    folder: "src/content/events"
+    folder: "abinitio-site/src/content/events"
     create: true
     slug: "{{slug}}"
     extension: md
@@ -100,7 +100,7 @@ collections:
 
   - name: stockists
     label: "Distributeurs"
-    folder: "src/content/stockists"
+    folder: "abinitio-site/src/content/stockists"
     create: true
     slug: "{{slug}}"
     extension: md
@@ -115,7 +115,7 @@ collections:
   - name: salons
     label: "Salons"
     label_singular: "Salon"
-    folder: "src/content/salons"
+    folder: "abinitio-site/src/content/salons"
     create: true
     slug: "{{year}}-{{slug}}"
     extension: md
@@ -142,7 +142,7 @@ collections:
   - name: importeurs
     label: "Importateurs"
     label_singular: "Importateur"
-    folder: "src/content/importeurs"
+    folder: "abinitio-site/src/content/importeurs"
     create: true
     slug: "{{slug}}"
     extension: md
@@ -157,7 +157,7 @@ collections:
   - name: points_de_vente
     label: "Points de vente France"
     label_singular: "Point de vente"
-    folder: "src/content/points-de-vente"
+    folder: "abinitio-site/src/content/points-de-vente"
     create: true
     slug: "{{slug}}"
     extension: md
@@ -175,7 +175,7 @@ collections:
     files:
       - name: partners_list
         label: "Liste des partenaires"
-        file: "src/content/partners/list.json"
+        file: "abinitio-site/src/content/partners/list.json"
         fields:
           - name: "items"
             label: "Adresses"
@@ -189,7 +189,7 @@ collections:
     files:
       - name: pro-cta
         label: "CTA Professionnels + Trust Strip"
-        file: "src/content/homepage/pro-cta.md"
+        file: "abinitio-site/src/content/homepage/pro-cta.md"
         format: yaml-frontmatter
         fields:
           - label: "Titre CTA"
