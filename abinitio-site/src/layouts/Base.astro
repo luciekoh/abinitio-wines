@@ -111,8 +111,6 @@ const privacyUrl = lang === 'en' ? '/en/privacy-policy' : '/politique-de-confide
 
     #tarteaucitronRoot #tarteaucitronAlertBig button,
     #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronCloseAlert,
-    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronPersonalize,
-    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronPersonalize2,
     #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronAllDenied,
     #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronAllDenied2 {
       appearance: none !important;
@@ -133,18 +131,38 @@ const privacyUrl = lang === 'en' ? '/en/privacy-policy' : '/politique-de-confide
 
     #tarteaucitronRoot #tarteaucitronAlertBig button:hover,
     #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronCloseAlert:hover,
-    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronPersonalize:hover,
-    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronPersonalize2:hover,
     #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronAllDenied:hover,
     #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronAllDenied2:hover {
       background: #f5f0e8 !important;
       color: #111110 !important;
     }
 
+    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronPersonalize,
+    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronPersonalize2 {
+      background: none !important;
+      border: none !important;
+      padding: 0 !important;
+      color: rgba(245, 240, 232, 0.55) !important;
+      font-family: 'DM Sans', sans-serif !important;
+      font-size: 12.5px !important;
+      font-weight: 400 !important;
+      text-decoration: underline !important;
+      text-transform: none !important;
+      letter-spacing: 0 !important;
+      cursor: pointer;
+    }
+
+    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronPersonalize:hover,
+    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronPersonalize2:hover {
+      color: #f5f0e8 !important;
+      background: none !important;
+    }
+
     #tarteaucitronRoot #tarteaucitronAlertBig a#tarteaucitronPrivacyUrl,
     #tarteaucitronRoot #tarteaucitronAlertBig .tarteaucitronAlertBigBottom a {
       color: rgba(245, 240, 232, 0.3) !important;
-      font-size: 11px !important;
+      font-family: 'DM Sans', sans-serif !important;
+      font-size: 12.5px !important;
       text-decoration: underline !important;
     }
   </style>
