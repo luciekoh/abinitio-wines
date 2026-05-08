@@ -1,4 +1,5 @@
 ---
+import { getImage } from 'astro:assets';
 import heroPhoto from '../assets/images/photos/emmanuel-roblin-vineyard.jpg';
 import logoImg from '../assets/images/logo/logo-ab-initio-clean.png';
 import enT from '../i18n/en.json';
@@ -10,6 +11,7 @@ interface Props {
 
 const { lang = 'fr' } = Astro.props;
 const t = lang === 'en' ? enT : frT;
+const optimizedHero = await getImage({ src: heroPhoto, format: 'webp', quality: 82, width: 1600 });
 
 const srHeading = lang === 'en'
   ? 'AB Initio — Organic wines aged in amphora, Muscadet Nantais, Loire Valley'
@@ -19,7 +21,7 @@ const scrollAria = lang === 'en' ? 'Discover — scroll to content' : 'Découvri
 ---
 
 <section class="hero">
-  <div class="hero-image" style={`background-image: url('${heroPhoto.src}')`}></div>
+  <div class="hero-image" style={`background-image: url('${optimizedHero.src}')`}></div>
   <div class="hero-content">
     <h1 class="sr-only">{srHeading}</h1>
     <img class="hero-logo-img" src={logoImg.src} alt={logoAlt} />

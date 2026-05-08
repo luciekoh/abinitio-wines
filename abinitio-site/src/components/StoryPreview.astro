@@ -1,4 +1,5 @@
 ---
+import { Image } from 'astro:assets';
 import cellarImg from '../assets/images/photos/emmanuel-roblin-cellar.jpg';
 import enT from '../i18n/en.json';
 import frT from '../i18n/fr.json';
@@ -40,7 +41,7 @@ const altText = lang === 'en'
     </div>
     <div class="story-right fade-in">
       <div class="story-image">
-        <img src={cellarImg.src} alt={altText} loading="lazy" />
+        <Image src={cellarImg} alt={altText} format="webp" quality={82} width={800} loading="lazy" />
       </div>
     </div>
   </div>

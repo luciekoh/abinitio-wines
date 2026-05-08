@@ -4,6 +4,7 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import SeoBreadcrumbs from '../components/SeoBreadcrumbs.astro';
 
+import { Image } from 'astro:assets';
 import grandpere from '../assets/histoire/grandpere-yves.jpg';
 import vignes from '../assets/histoire/vignes-providence.jpg';
 import kairos from '../assets/histoire/kairos-bouteille.jpg';
@@ -60,7 +61,7 @@ import bateau from '../assets/images/photos/emmanuel-roblin-vineyard.jpg';
     <p><strong>Vendanges 2018, Fred me parle d'un petit domaine pas loin de l'Écu.</strong> Arrivé au Domaine de la Providence, un coup de foudre pour ces pour ces vieilles vignes (comme le Melon centenaire) profondément enracinées dans des sous-sols de granite et de schiste et ses pratiques culturales douces. J'emménage dans une petite maison attenante au chai et commence la taille de la vigne.</p>
   </div>
 
-  <img src={vignes.src} alt="Les vignes de la Providence au coucher du soleil, Vallet" class="vignes-break" loading="lazy" />
+  <Image src={vignes} alt="Les vignes de la Providence au coucher du soleil, Vallet" class="vignes-break" format="webp" quality={82} width={1600} loading="lazy" />
 
   <!-- Kaïros + AB Initio creation -->
   <div class="kairos-section">
@@ -99,8 +100,8 @@ import bateau from '../assets/images/photos/emmanuel-roblin-vineyard.jpg';
 
   <!-- Archive photos -->
   <div class="archive-photos">
-    <img src={bateau.src} alt="Emmanuel Roblin dans les vignes du Muscadet nantais" loading="lazy" />
-    <img src={partners.src} alt="Emmanuel Roblin, Claire Niger et Fred Niger, associés AB Initio" loading="lazy" />
+    <Image src={bateau} alt="Emmanuel Roblin dans les vignes du Muscadet nantais" format="webp" quality={82} width={800} loading="lazy" />
+    <Image src={partners} alt="Emmanuel Roblin, Claire Niger et Fred Niger, associés AB Initio" format="webp" quality={82} width={800} loading="lazy" />
   </div>
 
   <Footer lang="fr" frPath="/histoire/" enPath="/en/our-story/" />
