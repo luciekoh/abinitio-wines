@@ -109,7 +109,7 @@ const privacyUrl = lang === 'en' ? '/en/privacy-policy' : '/politique-de-confide
       font-size: 12.5px !important;
     }
 
-    #tarteaucitronRoot #tarteaucitronAlertBig button,
+    /* Tout accepter / Tout refuser — real buttons */
     #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronCloseAlert,
     #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronAllDenied,
     #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronAllDenied2 {
@@ -129,7 +129,6 @@ const privacyUrl = lang === 'en' ? '/en/privacy-policy' : '/politique-de-confide
       transition: background 0.3s, color 0.3s;
     }
 
-    #tarteaucitronRoot #tarteaucitronAlertBig button:hover,
     #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronCloseAlert:hover,
     #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronAllDenied:hover,
     #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronAllDenied2:hover {
@@ -137,10 +136,14 @@ const privacyUrl = lang === 'en' ? '/en/privacy-policy' : '/politique-de-confide
       color: #111110 !important;
     }
 
+    /* Personnaliser — plain link style */
     #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronPersonalize,
     #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronPersonalize2 {
+      appearance: none !important;
+      -webkit-appearance: none !important;
       background: none !important;
       border: none !important;
+      border-radius: 0 !important;
       padding: 0 !important;
       color: rgba(245, 240, 232, 0.55) !important;
       font-family: 'DM Sans', sans-serif !important;
@@ -158,12 +161,18 @@ const privacyUrl = lang === 'en' ? '/en/privacy-policy' : '/politique-de-confide
       background: none !important;
     }
 
-    #tarteaucitronRoot #tarteaucitronAlertBig a#tarteaucitronPrivacyUrl,
+    /* Politique de confidentialité — plain link style */
+    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronPrivacyUrl,
+    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronPrivacyUrlDialog,
     #tarteaucitronRoot #tarteaucitronAlertBig .tarteaucitronAlertBigBottom a {
       color: rgba(245, 240, 232, 0.3) !important;
       font-family: 'DM Sans', sans-serif !important;
       font-size: 12.5px !important;
+      font-weight: 400 !important;
       text-decoration: underline !important;
+      background: none !important;
+      border: none !important;
+      padding: 0 !important;
     }
   </style>
 
