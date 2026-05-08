@@ -92,6 +92,63 @@ const privacyUrl = lang === 'en' ? '/en/privacy-policy' : '/politique-de-confide
     (tarteaucitron.job = tarteaucitron.job || []).push('googletagmanager');
   </script>
 
+  <!-- Tarteaucitron style overrides -->
+  <style is:global>
+    #tarteaucitronRoot #tarteaucitronAlertBig {
+      background: #111110 !important;
+      border-top: 0.5px solid rgba(245, 240, 232, 0.08) !important;
+      font-family: 'DM Sans', sans-serif !important;
+      color: rgba(245, 240, 232, 0.55) !important;
+      font-size: 12.5px !important;
+    }
+
+    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronDisclaimerAlert,
+    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronDisclaimerAlert span {
+      font-family: 'DM Sans', sans-serif !important;
+      color: rgba(245, 240, 232, 0.55) !important;
+      font-size: 12.5px !important;
+    }
+
+    #tarteaucitronRoot #tarteaucitronAlertBig button,
+    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronCloseAlert,
+    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronPersonalize,
+    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronPersonalize2,
+    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronAllDenied,
+    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronAllDenied2 {
+      appearance: none !important;
+      -webkit-appearance: none !important;
+      border-radius: 0 !important;
+      background: #111110 !important;
+      color: #f5f0e8 !important;
+      border: 0.5px solid rgba(245, 240, 232, 0.5) !important;
+      font-family: 'DM Sans', sans-serif !important;
+      font-size: 12px !important;
+      font-weight: 400 !important;
+      letter-spacing: 0.02em !important;
+      padding: 8px 16px !important;
+      text-transform: none !important;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    #tarteaucitronRoot #tarteaucitronAlertBig button:hover,
+    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronCloseAlert:hover,
+    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronPersonalize:hover,
+    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronPersonalize2:hover,
+    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronAllDenied:hover,
+    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronAllDenied2:hover {
+      background: #f5f0e8 !important;
+      color: #111110 !important;
+    }
+
+    #tarteaucitronRoot #tarteaucitronAlertBig a#tarteaucitronPrivacyUrl,
+    #tarteaucitronRoot #tarteaucitronAlertBig .tarteaucitronAlertBigBottom a {
+      color: rgba(245, 240, 232, 0.3) !important;
+      font-size: 11px !important;
+      text-decoration: underline !important;
+    }
+  </style>
+
   <!-- Structured data -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
