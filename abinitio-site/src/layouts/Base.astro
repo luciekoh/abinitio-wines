@@ -109,8 +109,8 @@ const privacyUrl = lang === 'en' ? '/en/privacy-policy' : '/politique-de-confide
       font-size: 12.5px !important;
     }
 
-    /* Tout accepter / Tout refuser — real buttons */
-    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronCloseAlert,
+    /* Tout accepter (#tarteaucitronPersonalize2) / Tout refuser (#tarteaucitronAllDenied2) — buttons */
+    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronPersonalize2,
     #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronAllDenied,
     #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronAllDenied2 {
       appearance: none !important;
@@ -129,16 +129,16 @@ const privacyUrl = lang === 'en' ? '/en/privacy-policy' : '/politique-de-confide
       transition: background 0.3s, color 0.3s;
     }
 
-    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronCloseAlert:hover,
+    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronPersonalize2:hover,
     #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronAllDenied:hover,
     #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronAllDenied2:hover {
       background: #f5f0e8 !important;
       color: #111110 !important;
     }
 
-    /* Personnaliser — plain link style */
-    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronPersonalize,
-    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronPersonalize2 {
+    /* Personnaliser (#tarteaucitronCloseAlert + #tarteaucitronPersonalize) — plain link */
+    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronCloseAlert,
+    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronPersonalize {
       appearance: none !important;
       -webkit-appearance: none !important;
       background: none !important;
@@ -155,8 +155,8 @@ const privacyUrl = lang === 'en' ? '/en/privacy-policy' : '/politique-de-confide
       cursor: pointer;
     }
 
-    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronPersonalize:hover,
-    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronPersonalize2:hover {
+    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronCloseAlert:hover,
+    #tarteaucitronRoot #tarteaucitronAlertBig #tarteaucitronPersonalize:hover {
       color: #f5f0e8 !important;
       background: none !important;
     }
