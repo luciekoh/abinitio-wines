@@ -83,24 +83,18 @@ const altText = lang === 'en'
   }
 
   .story-image {
-    height: 520px;
-    overflow: hidden;
+    width: 100%;
   }
 
   .story-image :global(img) {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
+    height: auto;
     display: block;
   }
 
   @media (max-width: 768px) {
     .story-grid {
       grid-template-columns: 1fr;
-    }
-    .story-image {
-      height: 320px;
     }
   }
 </style>
