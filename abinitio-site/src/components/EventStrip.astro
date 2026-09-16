@@ -27,9 +27,10 @@ function formatRange(startDate: Date, endDate: Date): string {
   const s = new Date(startDate), e = new Date(endDate);
   const sameDay = s.toDateString() === e.toDateString();
   const sameMonth = s.getMonth() === e.getMonth() && s.getFullYear() === e.getFullYear();
-  if (sameDay) return `${s.getDate()} ${months[s.getMonth()]}`.toUpperCase();
-  if (sameMonth) return `${s.getDate()}–${e.getDate()} ${months[s.getMonth()]}`.toUpperCase();
-  return `${s.getDate()} ${months[s.getMonth()]} – ${e.getDate()} ${months[e.getMonth()]}`.toUpperCase();
+  const year = s.getFullYear();
+  if (sameDay) return `${s.getDate()} ${months[s.getMonth()]} ${year}`.toUpperCase();
+  if (sameMonth) return `${s.getDate()}–${e.getDate()} ${months[s.getMonth()]} ${year}`.toUpperCase();
+  return `${s.getDate()} ${months[s.getMonth()]} – ${e.getDate()} ${months[e.getMonth()]} ${year}`.toUpperCase();
 }
 
 const countryMap: Record<string, string> = (t as any).countries || {};
