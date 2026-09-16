@@ -36,17 +36,6 @@ const wines = defineCollection({
   }),
 });
 
-const events = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/events' }),
-  schema: z.object({
-    name: z.string(),
-    date: z.string(),
-    dateEnd: z.string().optional(),
-    location: z.string(),
-    description: bilingualText.optional(),
-  }),
-});
-
 const salons = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/salons' }),
   schema: z.object({
@@ -86,4 +75,4 @@ const points_de_vente = defineCollection({
   }),
 });
 
-export const collections = { wines, events, salons, importeurs, points_de_vente };
+export const collections = { wines, salons, importeurs, points_de_vente };

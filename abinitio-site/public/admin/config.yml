@@ -78,26 +78,6 @@ collections:
           - { label: "FR", name: "fr", widget: "text" }
           - { label: "EN", name: "en", widget: "text" }
 
-  - name: events
-    label: "Salons"
-    folder: "abinitio-site/src/content/events"
-    create: true
-    slug: "{{slug}}"
-    extension: md
-    format: yaml-frontmatter
-    fields:
-      - { label: "Nom", name: "name", widget: "string" }
-      - { label: "Date début", name: "date", widget: "string" }
-      - { label: "Date fin", name: "dateEnd", widget: "string", required: false }
-      - { label: "Lieu", name: "location", widget: "string" }
-      - label: "Description"
-        name: "description"
-        widget: "object"
-        required: false
-        fields:
-          - { label: "FR", name: "fr", widget: "text", required: false }
-          - { label: "EN", name: "en", widget: "text", required: false }
-
   - name: stockists
     label: "Distributeurs"
     folder: "abinitio-site/src/content/stockists"
@@ -123,8 +103,8 @@ collections:
     fields:
       - { label: "Nom du salon", name: "name", widget: "string" }
       - { label: "Nom (EN, si différent)", name: "name_en", widget: "string", required: false }
-      - { label: "Date de début", name: "start_date", widget: "date", format: "YYYY-MM-DD" }
-      - { label: "Date de fin", name: "end_date", widget: "date", format: "YYYY-MM-DD" }
+      - { label: "Date de début", name: "start_date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+      - { label: "Date de fin", name: "end_date", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
       - { label: "Ville", name: "city", widget: "string" }
       - { label: "Pays", name: "country", widget: "string", default: "France" }
       - label: "Type"

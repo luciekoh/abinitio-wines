@@ -1,0 +1,14 @@
+name: Weekly rebuild (refresh past/upcoming events)
+
+on:
+  schedule:
+    # Every Monday, 04:00 UTC — well before European morning traffic
+    - cron: '0 4 * * 1'
+  workflow_dispatch: {}
+
+jobs:
+  trigger-netlify-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Netlify build hook
+        run: curl -X POST -sf "${{ secrets.NETLIFY_BUILD_HOOK }}"
