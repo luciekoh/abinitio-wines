@@ -1,5 +1,7 @@
 ---
 name: Mi-Livre Mi-Raisin
+start_date: "2026-12-05"
+end_date: "2026-12-06"
 city: Paris 20e
 country: France
 type: mixte
