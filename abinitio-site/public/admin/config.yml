@@ -40,8 +40,8 @@ collections:
         widget: "object"
         required: false
         fields:
-          - { label: "FR", name: "fr", widget: "text" }
-          - { label: "EN", name: "en", widget: "text" }
+          - { label: "FR", name: "fr", widget: "text", required: false }
+          - { label: "EN", name: "en", widget: "text", required: false }
       - label: "Slogan"
         name: "slogan"
         widget: "object"

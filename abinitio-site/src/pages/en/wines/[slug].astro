@@ -135,7 +135,7 @@ const techSheets = [
     <div class="wine-story-inner">
       <span class="section-label">{t.wineDetail.storyLabel}</span>
       <p class="wine-story-text">{wine.about.en}</p>
-      {wine.nameMeaning && (
+      {wine.nameMeaning?.en && (
         <p class="wine-name-meaning">{wine.name} — {wine.nameMeaning.en}</p>
       )}
     </div>

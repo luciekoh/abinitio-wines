@@ -135,7 +135,7 @@ const techSheets = [
     <div class="wine-story-inner">
       <span class="section-label">L'histoire de cette cuvée</span>
       <p class="wine-story-text">{wine.about.fr}</p>
-      {wine.nameMeaning && (
+      {wine.nameMeaning?.fr && (
         <p class="wine-name-meaning">{wine.name} — {wine.nameMeaning.fr}</p>
       )}
     </div>
