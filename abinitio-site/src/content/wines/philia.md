@@ -1,6 +1,7 @@
 ---
 name: "PHILIA"
 vintage: 2021
+techsheets: [2021]
 color: "blanc"
 category: "philosophie"
 grapes: "Folle Blanche 80%, Melon de Bourgogne 20%"

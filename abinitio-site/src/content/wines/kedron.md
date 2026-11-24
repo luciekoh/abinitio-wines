@@ -1,6 +1,7 @@
 ---
 name: "KEDRON"
 vintage: 2020
+techsheets: [2020]
 color: "rouge"
 category: "philosophie"
 grapes: "Grenache 95%, Syrah 5%"

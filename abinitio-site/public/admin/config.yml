@@ -17,6 +17,7 @@ collections:
     fields:
       - { label: "Nom", name: "name", widget: "string" }
       - { label: "Millésime (année)", name: "vintage", widget: "number", value_type: "int" }
+      - { label: "Fiches techniques disponibles (années)", name: "techsheets", widget: "list", required: false, hint: "Une ligne par année dont le PDF existe dans /techsheets (ex. 2023). Ajouter la nouvelle année sans supprimer les anciennes.", field: { label: "Année", name: "year", widget: "number", value_type: "int" } }
       - { label: "Couleur", name: "color", widget: "select", options: ["blanc", "rouge"] }
       - { label: "Catégorie", name: "category", widget: "select", options: ["philosophie", "copains"] }
       - { label: "Cépages", name: "grapes", widget: "string" }
@@ -97,6 +98,7 @@ collections:
     label_singular: "Salon"
     folder: "abinitio-site/src/content/salons"
     create: true
+    identifier_field: name
     slug: "{{year}}-{{slug}}"
     extension: md
     format: yaml-frontmatter

@@ -85,9 +85,11 @@ const terroirShort = wine.terroir.split(' / ').pop() || wine.terroir;
 
 // Tech sheets
 const wineName = wine.name.charAt(0) + wine.name.slice(1).toLowerCase();
+// One link per year listed in the CMS field "techsheets" (newest first); falls back to the vintage.
+const sheetYears = [...(wine.techsheets ?? [wine.vintage])].sort((a, b) => b - a);
 const techSheets = [
-  { label: `Fiche technique ${wineName} ${wine.vintage}`, url: `/techsheets/${slug}-${wine.vintage}-fr.pdf` },
-  ...(slug === 'logos' ? [{ label: `Fiche technique ${wineName} ${wine.vintage} (18 mois)`, url: `/techsheets/logos-2023-18m-fr.pdf` }] : []),
+  ...sheetYears.map((y) => ({ label: `Fiche technique ${wineName} ${y}`, url: `/techsheets/${slug}-${y}-fr.pdf` })),
+  ...(slug === 'logos' ? [{ label: `Fiche technique ${wineName} 2023 (18 mois)`, url: `/techsheets/logos-2023-18m-fr.pdf` }] : []),
 ];
 ---
 

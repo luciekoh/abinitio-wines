@@ -1,6 +1,7 @@
 ---
 name: "KAÏROS"
 vintage: 2021
+techsheets: [2021]
 color: "rouge"
 category: "philosophie"
 grapes: "Gamay 100%"

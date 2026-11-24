@@ -1,6 +1,7 @@
 ---
 name: "EÏDOS"
 vintage: 2022
+techsheets: [2022]
 color: "blanc"
 category: "philosophie"
 grapes: "Melon de Bourgogne 40%, Folle Blanche 26%, Chardonnay 34%"

@@ -1,6 +1,7 @@
 ---
 name: "LOGOS"
 vintage: 2023
+techsheets: [2023]
 color: "blanc"
 category: "philosophie"
 grapes: "Chardonnay 100%"

@@ -1,6 +1,7 @@
 ---
 name: "ILLICO"
 vintage: 2021
+techsheets: [2021]
 color: "rouge"
 category: "copains"
 grapes: "Grenache 75%, Syrah 25%"

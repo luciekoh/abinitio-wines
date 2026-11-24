@@ -11,6 +11,7 @@ const wines = defineCollection({
   schema: z.object({
     name: z.string(),
     vintage: z.number(),
+    techsheets: z.array(z.number()).optional(),
     color: z.enum(['blanc', 'rouge']),
     category: z.enum(['philosophie', 'copains']),
     grapes: z.string(),

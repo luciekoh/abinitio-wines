@@ -1,6 +1,7 @@
 ---
 name: "PRESTO"
 vintage: 2023
+techsheets: [2023]
 color: "blanc"
 category: "copains"
 grapes: "Melon de Bourgogne 70%, Folle Blanche 14%, Chardonnay 16%"

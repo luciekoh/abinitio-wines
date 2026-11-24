@@ -1,6 +1,7 @@
 ---
 name: "EKKO"
 vintage: 2023
+techsheets: [2023]
 color: "blanc"
 category: "copains"
 grapes: "Melon de Bourgogne 100%"
